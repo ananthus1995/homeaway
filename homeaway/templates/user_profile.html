@@ -1,0 +1,320 @@
+{%extends 'base.html'%}
+{%block body_block%}
+{%load static%}
+<style>
+    .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 40%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+input[type="file"] {
+  display: block;
+}
+.imageThumb {
+  max-height: 75px;
+  border: 2px solid;
+  padding: 1px;
+  cursor: pointer;
+}
+.pip {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+
+.square {
+    height: 41%;
+    width: 44%;
+}
+</style>
+<aside class="col-md-4">
+
+
+
+<div class="mb-3 border rounded bg-white profile-box text-center w-10">
+<div class="align-items-center ">
+
+{%if request.user.userimg.user_img%}
+<img src="{{request.user.userimg.user_img.url}}" class="square " alt="Responsive image" style="    max-width: 50%;">
+
+    {%elif request.user.gender == 'Male'%}
+    <img src="{%static 'img-profile/maleavtr.png'%}" class="img-fluid rounded-circle" alt="Responsive image" style="    max-width: 50%;">
+      {%elif request.user.gender == 'Female'%}
+    <img src="{%static 'img-profile/img_avatar2femle.png'%}" class="img-fluid rounded-circle" alt="Responsive image" style="    max-width: 50%;">
+    {%endif%}
+<div class="p-4">
+
+
+
+
+
+</div>
+
+</div>
+    {%if request.user.userimg.user_img%}
+    <a href="{%url 'delete-proimg'%}"><button >RemoveProfilePic</button></a>
+    {%else%}
+    {%endif%}
+
+
+
+<button id="myBtn">UploadNewPic</button>
+<!--    <input id="photo" name="upload_file" type="file" class="form-control" id="upload_file" onchange="getImagePreview(event)" accept="image/png, image/jpeg">-->
+
+
+
+
+
+</div>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+
+    </div>
+    <div class="modal-body">
+       <div class="field" align="left">
+  <h3>Upload profilePic</h3>
+           <form enctype="multipart/form-data" method="post" action="{%url 'update_proimage'%}">
+               {%csrf_token%}
+  <input type="file" id="files" name="files" accept="image/x-png,image/gif,image/jpeg" required/>
+           <button id="upload" type="submit">upload</button>
+               </form>
+</div>
+<!--    <input type="file" name="upload_file" class="form-control" placeholder="Enter Name" id="upload_file" onchange="getImagePreview(event)">-->
+    </div>
+
+
+
+  </div>
+
+</div>
+
+
+
+<div class="border rounded bg-white mb-3">
+<div class="box-title border-bottom p-3">
+<h6 class="m-0">Social profiles</h6>
+<p class="mb-0 mt-0 small">Add elsewhere links to your profile.
+</p>
+</div>
+
+<div class="box-body">
+    <form method="post" action="{%url 'usersocprofile'%}">
+        {%csrf_token%}
+
+<div class="p-3 border-bottom">
+<div class="position-relative icon-form-control mb-2">
+<i class="feather-instagram position-absolute text-warning"></i>
+    {%if request.user.user_links.insta_link%}
+<input placeholder="Add Instagram link" name="insta_link" type="url" class="form-control" value="{{request.user.user_links.insta_link}}">
+    {%else%}
+    <input placeholder="Add Instagram link" name="insta_link" type="url" class="form-control" >
+    {%endif%}
+
+</div>
+<div class="position-relative icon-form-control mb-2">
+<i class="feather-facebook position-absolute text-primary"></i>
+    {%if request.user.user_links.fb_link%}
+<input placeholder="Add Facebook link" name="fb_link" type="url" class="form-control" value="{{request.user.user_links.fb_link}}">
+    {%else%}
+    <input placeholder="Add Facebook link" name="fb_link" type="url" class="form-control" >
+    {%endif%}
+</div>
+
+<div class="position-relative icon-form-control mb-2">
+<i class="feather-youtube position-absolute text-danger"></i>
+    {%if request.user.user_links.youtube_link%}
+<input placeholder="Add Youtube link" name="youtube_link" type="url" class="form-control" value="{{request.user.user_links.youtube_link}}">
+    {%else%}
+    <input placeholder="Add Youtube link" name="youtube_link" type="url" class="form-control">
+    {%endif%}
+</div>
+<div class="position-relative icon-form-control mb-0">
+<i class="feather-github position-absolute text-dark"></i>
+      {%if request.user.user_links.youtube_link%}
+<input placeholder="Add Github link" type="url" class="form-control"  name="git_link" value="{{request.user.user_links.git_link}}">
+    {%else%}
+    <input placeholder="Add Github link" type="url" class="form-control"  name="git_link" >
+    {%endif%}
+</div>
+</div>
+<div class="overflow-hidden text-center p-3">
+<button class="font-weight-bold btn btn-light rounded p-3 d-block" type="submit"> Update Social Profiles </button>
+</div>
+        </form>
+</div>
+
+</div>
+</aside>
+
+
+
+
+
+
+<main class="col-md-8">
+<div class="border rounded bg-white mb-3">
+<div class="box-title border-bottom p-3">
+<h6 class="m-0">Edit Basic Info</h6>
+<p class="mb-0 mt-0 small">
+</p>
+</div>
+    <form method="POST"  action="{%url 'user-profile'%}">
+        {%csrf_token%}
+<div class="box-body p-3" id="basicdata">
+
+   {%csrf_token%}
+             <div class="row">
+
+
+
+              {% for field in form %}
+     <div class="col-sm-6 mb-2">
+         <div class="js-form-message">
+             <label id="fieldid" class="form-label">
+             {{ field.label_tag }}
+
+             </label>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="display: none ">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+         </div></div>
+      {% endfor %}
+
+
+</div>
+    <div class="mb-3 text-right">
+<a class="font-weight-bold btn btn-link rounded p-3" href="{%url 'userhome'%}">Cancel </a>
+<button class="font-weight-bold btn btn-primary rounded p-3" type="submit"> Sava Chenges</button>
+</div>
+
+</div></form>
+
+</div>
+<!--<div class="border rounded bg-white mb-3">-->
+<!--<div class="box-title border-bottom p-3">-->
+<!--<h6 class="m-0">Experience-->
+<!--</h6>-->
+<!--<p class="mb-0 mt-0 small">Tell about your work, job, and other experiences.-->
+<!--</p>-->
+<!--</div>-->
+<!--<div class="box-body px-3 pt-3 pb-0">-->
+<!--<div class="row">-->
+<!--<div class="col-sm-6 mb-4">-->
+<!--<label id="FROM" class="form-label">FROM</label>-->
+
+<!--<div class="input-group">-->
+<!--<input type="text" class="form-control" placeholder="From" aria-label="FROM" aria-describedby="FROM">-->
+<!--</div>-->
+
+<!--</div>-->
+<!--<div class="col-sm-6 mb-4">-->
+<!--<label id="TO" class="form-label">TO</label>-->
+
+<!--<div class="input-group">-->
+<!--<input type="text" class="form-control" placeholder="TO" aria-label="TO" aria-describedby="TO">-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col-sm-6 mb-4">-->
+<!--<label id="companyLabel" class="form-label">Company</label>-->
+
+<!--<div class="input-group">-->
+<!--<input type="text" class="form-control" placeholder="Enter your company title" aria-label="Enter your company title" aria-describedby="companyLabel">-->
+<!--</div>-->
+
+<!--</div>-->
+<!--<div class="col-sm-6 mb-4">-->
+<!--<label id="positionLabel" class="form-label">Position</label>-->
+
+<!-- <div class="input-group">-->
+<!--<input type="text" class="form-control" placeholder="Enter your position" aria-label="Enter your position" aria-describedby="positionLabel">-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="mb-3 text-right">-->
+<!--<a class="font-weight-bold btn btn-link rounded p-3" href="#"> &nbsp;&nbsp;&nbsp;&nbsp; Cancel &nbsp;&nbsp;&nbsp;&nbsp; </a>-->
+<!--<a class="font-weight-bold btn btn-primary rounded p-3" href="#"> &nbsp;&nbsp;&nbsp;&nbsp; Sava Chenges &nbsp;&nbsp;&nbsp;&nbsp; </a>-->
+<!--</div>-->
+
+</main>
+
+
+{%endblock%}

@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" type="image/png" href="img/fav.png">
+<title>ebuddy</title>
+
+<link rel="stylesheet" type="text/css" href="{%static 'css/slick.min.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static 'css/slick-theme.min.css'%}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="{%static 'css/feather.css'%}" rel="stylesheet" type="text/css">
+
+<link href="{%static 'css/bootstrap.min.css'%}" rel="stylesheet">
+
+<link href="{%static 'css/style.css'%}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand navbar-dark bg-dark osahan-nav-top p-0 sticky-top">
+<div class="container">
+<a class="navbar-brand mr-2" href="index.html"><img src="pageimages/logo.svg" alt="">
+</a>
+<form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
+<div class="input-group">
+<input type="text" class="form-control shadow-none border-0" placeholder="Search people, jobs & more..." aria-label="Search" aria-describedby="basic-addon2">
+<div class="input-group-append">
+<button class="btn" type="button">
+<i class="feather-search"></i>
+</button>
+</div>
+</div>
+</form>
+<ul class="navbar-nav ml-auto d-flex align-items-center">
+
+<li class="nav-item dropdown no-arrow d-sm-none">
+<a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<i class="feather-search mr-2"></i>
+</a>
+
+<div class="dropdown-menu dropdown-menu-right p-3 shadow-sm animated--grow-in" aria-labelledby="searchDropdown">
+<form class="form-inline mr-auto w-100 navbar-search">
+<div class="input-group">
+<input type="text" class="form-control border-0 shadow-none" placeholder="Search people, jobs and more..." aria-label="Search" aria-describedby="basic-addon2">
+<div class="input-group-append">
+<button class="btn" type="button">
+<i class="feather-search"></i>
+</button>
+</div>
+</div>
+</form>
+</div>
+</li>
+
+
+
+<li class="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
+<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<i class="feather-message-square"></i>
+
+<span class="badge badge-danger badge-counter">8</span>
+</a>
+
+<div class="dropdown-list dropdown-menu dropdown-menu-right shadow-sm">
+<h6 class="dropdown-header">
+Message Center
+</h6>
+
+<a class="dropdown-item d-flex align-items-center" href="messages.html">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="https://askbootstrap.com/preview/Olink/light/img/p4.png" alt="">
+<div class="status-indicator bg-success"></div>
+</div>
+<div class="overflow-hidden">
+<div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+<div class="small text-gray-500">Chicken the Dog · 2w</div>
+</div>
+</a>
+<a class="dropdown-item text-center small text-gray-500" href="messages.html">Read More Messages</a>
+</div>
+</li>
+<li class="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
+<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<i class="feather-bell"></i>
+
+<span class="badge badge-info badge-counter">6</span>
+</a>
+
+<div class="dropdown-list dropdown-menu dropdown-menu-right shadow-sm">
+<h6 class="dropdown-header">
+Alerts Center
+</h6>
+
+<a class="dropdown-item d-flex align-items-center" href="notifications.html">
+<div class="mr-3">
+<div class="icon-circle bg-warning">
+<i class="feather-folder text-white"></i>
+</div>
+</div>
+<div>
+
+</div>
+</a>
+<a class="dropdown-item text-center small text-gray-500" href="notifications.html">Show All Alerts</a>
+
+</div>
+</li>
+
+<li class="nav-item dropdown no-arrow ml-1 osahan-profile-dropdown">
+<a class="nav-link dropdown-toggle pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ {%if request.user.userimg.user_img%}
+<img src="{{request.user.userimg.user_img.url}}" class="img-profile rounded-circle" alt="Responsive image">
+
+
+    {%elif request.user.gender == 'Male'%}
+    <img src="{%static 'img-profile/maleavtr.png'%}" class="img-profile rounded-circle " alt="Responsive image">
+      {%elif request.user.gender == 'Female'%}
+    <img src="{%static 'img-profile/img_avatar2femle.png'%}" class="img-profile rounded-circle" alt="Responsive image">
+    {%endif%}
+
+</a>
+
+<div class="dropdown-menu dropdown-menu-right shadow-sm">
+<div class="p-3 d-flex align-items-center">
+<div class="dropdown-list-image mr-3">
+    {%if request.user.userimg.user_img%}
+<img src="{{request.user.userimg.user_img.url}}" class=" rounded-circle" alt="Responsive image">
+
+
+    {%elif request.user.gender == 'Male'%}
+    <img src="{%static 'img-profile/maleavtr.png'%}" class="rounded-circle " alt="Responsive image">
+      {%elif request.user.gender == 'Female'%}
+    <img src="{%static 'img-profile/img_avatar2femle.png'%}" class="rounded-circle" alt="Responsive image">
+    {%endif%}
+
+<div class="status-indicator bg-success"></div>
+</div>
+<div class="font-weight-bold">
+<div class="text-truncate">{{request.user.get_full_name}}</div>
+<div class="small text-gray-500">{{request.user}}</div>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<!--<a class="dropdown-item" href="profile.html"><i class="feather-edit mr-1"></i> My Account</a>-->
+        <a class="dropdown-item" href="{% url 'user-profile'%}"><i class="feather-user mr-1"></i>UpdateProfile </a>
+
+<div class="dropdown-divider"></div>
+<a class="dropdown-item" href="{%url 'resetpassword'%}"><i class="feather-lock mr-1"></i>ChangePassword</a>
+<div class="dropdown-divider"></div>
+<a class="dropdown-item" href="{%url 'signout'%}"><i class="feather-log-out mr-1"></i> Logout</a>
+</div>
+</li>
+</ul>
+</div>
+</nav>
+<div class="profile-cover text-center">
+<img class="img-fluid" src="{%static 'img-profile/company-profile.jpg'%}" alt="">
+</div>
+<div class="bg-white shadow-sm border-bottom">
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<div class="d-flex align-items-center py-3">
+<div class="profile-left">
+<h5 class="font-weight-bold text-dark mb-1 mt-0">{{user_detail.user.get_full_name}}<span class="text-info"><i data-toggle="tooltip" data-placement="top" title="" class="feather-check-circle" data-original-title="Verified"></i></span></h5>
+<p class="mb-0 text-muted font-weight-bold" style="color:#2974c1!important;">
+    {%if post_count == 0%}
+    0 Post
+    {%elif post_count == 1%}
+    1 Post
+    {%else%}
+    {{post_count}} Posts
+    {%endif%}| {{following_count}} following | {{followers_count}} followers</p>
+</div>
+<div class="profile-right ml-auto">
+<!--<button type="button" class="btn btn-light mr-2"> <i class="feather-external-link"></i> Visit website </button>-->
+<form method="post" class="follow_unfollow" action="{% url 'followunfollow'%}" id="{{user_detail.user.id}}">
+    {%csrf_token%}
+    <input type="hidden" name="userid" value="{{user_detail.user.id}}">
+
+
+<!--     <button type="submit"  class="unstyled-button follow-btn{{user_detail.user.id}}" style="border: none !important;background: none; outline: none;" id="followbtns">-->
+{%if user_detail.user == request.user%}
+
+    <a href="{%url 'user-profile'%}" class="btn btn-primary" > <i class="feather-user-check"></i> Profile Setings </a>
+    {%else%}
+{%if f_button_value == 'Following'%}
+<button type="submit" class="btn btn-success  following" > <i class="feather-user-check"></i> Following</button>
+    {%elif f_button_value == 'Requested'%}
+    <button type="submit" class="btn btn-secondary  requested" > <i class="feather-user-plus"></i> Requested</button>
+
+    {%else%}
+    <button type="submit" class="btn btn-primary follow"> <i class="feather-user-plus"></i> Follow</button>
+{%endif%}
+{%endif%}
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pb-4 pt-3">
+<div class="container">
+<div class="row">
+
+<main class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
+<div class="box shadow-sm rounded bg-white mb-3 overflow-hidden">
+<ul class="nav border-bottom osahan-line-tab" id="myTab" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Posts</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">About</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Jobs</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="type-tab" data-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">Life</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="type-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="type" aria-selected="false">Reviews</a>
+</li>
+</ul>
+</div>
+<div class="tab-content" id="myTabContent">
+<div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
+<!--<div class="box shadow-sm border rounded bg-white mb-3">-->
+<!--<div class="box-title border-bottom p-3">-->
+<!--<h6 class="m-0">About</h6>-->
+<!--</div>-->
+
+<!--<div class="box-body p-3">-->
+<!--<p>Google’s mission is to organize the world‘s information and make it universally accessible and useful.-->
+<!--</p>-->
+<!--<p class="mb-0">Since our founding in 1998, Google has grown by leaps and bounds. From offering search in a single language we now offer dozens of products and services—including various forms of advertising and web applications for all kinds of tasks—in scores of languages. And starting from two computer science students in a university dorm room, we now have thousands of employees and offices around the world. A lot has changed since the first Google search engine appeared. But some things haven’t changed: our dedication to our users and our belief in the possibilities of the Internet itself.-->
+<!--</p>-->
+<!--</div>-->
+
+<!--</div>-->
+
+    <div class="box shadow-sm border rounded bg-white mb-3">
+<div class="box-title border-bottom p-3">
+
+  {%if user_detail.user == request.user%}
+     <span class="ml-auto"><a href="{%url 'user-profile'%}" class=" text-secondary text-bold">update details</a></span>
+    {%endif%}
+</div>
+<div class="box-body">
+<table class="table table-borderless mb-0">
+<tbody>
+<tr class="border-bottom">
+
+<th class="p-3">Place</th>
+    {%if user_detail.location%}
+<td class="p-3">{{user_detail.location}}</td>
+
+    {%endif%}
+</tr>
+<tr class="border-bottom">
+
+<th class="p-3">Birth Day</th>
+    {%if user_detail.dob%}
+<td class="p-3">{{user_detail.dob}}</td>
+    {%endif%}
+</tr>
+
+<tr class="border-bottom">
+
+<th class="p-3">Website</th>
+     {%if user_detail.website%}
+<td class="p-3"><a href="{{user_detail.website}}" target="_blank">{{user_detail.website}}</a></td>
+     {%endif%}
+</tr>
+<tr class="border-bottom">
+<th class="p-3">Organization</th>
+    {%if user_detail.organisation%}
+<td class="p-3">{{user_detail.organisation}}</td>
+    {%endif%}
+</tr>
+
+
+</tbody>
+</table>
+</div>
+</div>
+<!--<div class="box shadow-sm border rounded bg-white mb-3">-->
+<!--<div class="box-title border-bottom p-3">-->
+<!--<h6 class="m-0">Locations</h6>-->
+<!--</div>-->
+<!--<div class="p-3">-->
+<!--<div class="row">-->
+<!--<div class="col-md-6">-->
+<!--<div class="card overflow-hidden">-->
+<!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501889.172354371!2d73.15671299623955!3d31.003573085499198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391964aa569e7355%3A0x8fbd263103a38861!2sPunjab!5e0!3m2!1sen!2sin!4v1575738201305!5m2!1sen!2sin" width="100%" height="150" frameborder="0" style="border:0;" allowfullscreen=""></iframe>-->
+<!--<div class="card-body">-->
+<!--<h6 class="card-title">Postal Address</h6>-->
+<!--<p class="card-text">PO Box 16122 Collins Street West Victoria 8007 Australia</p>-->
+<!--<a href="#" class="text-link font-weight-bold"><i class="feather-external-link"></i> Get Directions</a>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-md-6">-->
+<!--<div class="card overflow-hidden">-->
+<!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109552.19658166621!2d75.78663235513761!3d30.900473637624447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a837462345a7d%3A0x681102348ec60610!2sLudhiana%2C%20Punjab!5e0!3m2!1sen!2sin!4v1575738867148!5m2!1sen!2sin" width="100%" height="150" frameborder="0" style="border:0;" allowfullscreen=""></iframe>-->
+<!--<div class="card-body">-->
+<!--<h6 class="card-title">Envato HQ</h6>-->
+<!--<p class="card-text">121 King Street, Melbourne Victoria 3000 Australia</p>-->
+<!--<a href="#" class="text-link font-weight-bold"><i class="feather-external-link"></i> Get Directions</a>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+</div>
+<div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+     {%if user_posts%}
+    {%for post in user_posts%}
+<div class="box shadow-sm border rounded bg-white mb-3 osahan-post">
+    <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+      <div class="dropdown-list-image mr-3"><a href="{%url 'usersprofileview' post.user post.user_id%}">
+        {%if post.user.userimg.user_img%}
+        <img class="rounded-circle" src="{{post.user.userimg.user_img.url}}" alt="">
+         {%elif post.user.gender == 'Male'%}
+         <img class="rounded-circle" src="{%static 'img-profile/maleavtr.png'%}" alt="">
+          {%elif post.user.gender == 'Female'%}
+         <img class="rounded-circle" src="{%static 'img-profile/img_avatar2femle.png'%}" alt="">
+         {%endif%}
+
+        <div class="status-indicator bg-success"></div></a>
+      </div>
+      <div class="font-weight-bold"><a href="{%url 'usersprofileview' post.user post.user_id%}" style="color:#000000c9;">
+        <div class="text-truncate">{{post.user.get_full_name}}</div>
+        <div class="small text-gray-500">{{post.user}}</div></a>
+      </div>
+      <span class="ml-auto small">{{post.get_date}}</span>
+    </div>
+    <div class="p-3 border-bottom osahan-post-body">
+      <p class="mb-0">{{post.caption}}</p>
+      {%if post.image%}
+      <div>
+
+
+       <img class="img-responsive" src="{{post.image.url}}" alt=""  width="55%" height="55%">
+
+
+      </div>
+{%endif%}
+    </div>
+
+
+
+    <div class="p-3 border-bottom osahan-post-footer">
+      <div class="mr-3" >
+         <form action="{% url 'likeaction'  %}" method="POST" class='like-form' id='{{post.id}}'>
+      {%csrf_token%}
+           <input type="hidden"  name="post_id" value={{post.id}}>
+ <button type="submit"  class="unstyled-button like-btn{{post.id}}" style="border: none !important;background: none; outline: none;" id="likebtns">
+
+       {% if  request.user not in post.liked.all%}
+
+                        <i class="feather-heart " id="like_btn"  style="font-size:15px">like</i>
+
+
+                                {% else %}
+                <i class="fa fa-heart" style="font-size:15px;color:red" id="unlike_btn" >liked</i>
+
+                                {% endif %}
+
+ </button>
+
+       <span class="like-count{{post.id}}" > {{post.num_likes}}  </span>  <span>likes</span>
+</form>
+      </div>
+
+
+
+
+
+
+
+      <a href="#" class="mr-3 text-secondary">
+        <i class="feather-message-square"></i> 8 </a>
+      <a href="#" class="mr-3 text-secondary">
+        <i class="feather-share-2"></i> 2 </a>
+    </div>
+
+
+<!--    <div class="p-3">-->
+<!--      <button type="button" class="btn btn-outline-primary btn-sm mr-1">Awesome!!</button>-->
+<!--      <button type="button" class="btn btn-light btn-sm mr-1">😍</button>-->
+<!--      <button type="button" class="btn btn-outline-secondary btn-sm mr-1">Whats it about?</button>-->
+<!--      <button type="button" class="btn btn-outline-secondary btn-sm mr-1">Oooo Great Wow</button>-->
+<!--    </div>-->
+  </div>
+    {%endfor%}
+    {%endif%}
+
+<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+<div class="box shadow-sm border rounded bg-white p-3">
+<div class="row">
+<div class="col-md-6">
+<a href="job-profile.html">
+<div class="border job-item mb-3">
+<div class="d-flex align-items-center p-3 job-item-header">
+<div class="overflow-hidden mr-2">
+<h6 class="font-weight-bold text-dark mb-0 text-truncate">UI/UX designer</h6>
+<div class="text-truncate text-primary">Envato</div>
+<div class="small text-gray-500"><i class="feather-map-pin"></i> India, Punjab</div>
+</div>
+<img class="img-fluid ml-auto" src="img/l1.png" alt="">
+</div>
+<div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+<div class="overlap-rounded-circle">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p1.png" alt="" data-original-title="Sophia Lee">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p2.png" alt="" data-original-title="John Doe">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p3.png" alt="" data-original-title="Julia Cox">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p4.png" alt="" data-original-title="Robert Cook">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p5.png" alt="" data-original-title="Sophia Lee">
+</div>
+<span class="font-weight-bold text-primary">18 connections</span>
+</div>
+<div class="p-3 job-item-footer">
+<small class="text-gray-500"><i class="feather-clock"></i> Posted 3 Days ago</small>
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6">
+<a href="job-profile.html">
+<div class="border job-item mb-3">
+<div class="d-flex align-items-center p-3 job-item-header">
+<div class="overflow-hidden mr-2">
+<h6 class="font-weight-bold text-dark mb-0 text-truncate">Junior UX Designer</h6>
+<div class="text-truncate text-primary">Behance</div>
+<div class="small text-gray-500"><i class="feather-map-pin"></i> Vancouver, BC
+</div>
+</div>
+<img class="img-fluid ml-auto" src="img/l2.png" alt="">
+</div>
+<div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+<div class="overlap-rounded-circle">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p6.png" alt="" data-original-title="John Doe">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p7.png" alt="" data-original-title="Julia Cox">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p8.png" alt="" data-original-title="Robert Cook">
+</div>
+<span class="font-weight-bold text-primary">18 connections</span>
+</div>
+<div class="p-3 job-item-footer">
+<small class="text-gray-500"><i class="feather-clock"></i> Posted 3 Days ago</small>
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6">
+<a href="job-profile.html">
+<div class="border job-item mb-3">
+<div class="d-flex align-items-center p-3 job-item-header">
+<div class="overflow-hidden mr-2">
+<h6 class="font-weight-bold text-dark mb-0 text-truncate">Product Director</h6>
+<div class="text-truncate text-primary">Spotify Inc.</div>
+<div class="small text-gray-500"><i class="feather-map-pin"></i> India, Punjab</div>
+</div>
+<img class="img-fluid ml-auto" src="img/l3.png" alt="">
+</div>
+<div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+<div class="overlap-rounded-circle">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p9.png" alt="" data-original-title="Sophia Lee">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p10.png" alt="" data-original-title="John Doe">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p11.png" alt="" data-original-title="Julia Cox">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p12.png" alt="" data-original-title="Robert Cook">
+</div>
+<span class="font-weight-bold text-primary">18 connections</span>
+</div>
+<div class="p-3 job-item-footer">
+<small class="text-gray-500"><i class="feather-clock"></i> Posted 3 Days ago</small>
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6">
+<a href="job-profile.html">
+<div class="border job-item mb-3">
+<div class="d-flex align-items-center p-3 job-item-header">
+<div class="overflow-hidden mr-2">
+<h6 class="font-weight-bold text-dark mb-0 text-truncate">.NET Developer</h6>
+<div class="text-truncate text-primary">Invision</div>
+<div class="small text-gray-500"><i class="feather-map-pin"></i> London, UK
+</div>
+</div>
+<img class="img-fluid ml-auto" src="img/l4.png" alt="">
+</div>
+<div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+<div class="overlap-rounded-circle">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p13.png" alt="" data-original-title="Sophia Lee">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p1.png" alt="" data-original-title="John Doe">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p2.png" alt="" data-original-title="Julia Cox">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p3.png" alt="" data-original-title="Robert Cook">
+</div>
+<span class="font-weight-bold text-primary">18 connections</span>
+</div>
+<div class="p-3 job-item-footer">
+<small class="text-gray-500"><i class="feather-clock"></i> Posted 3 Days ago</small>
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6">
+<a href="job-profile.html">
+<div class="border job-item mb-3">
+<div class="d-flex align-items-center p-3 job-item-header">
+<div class="overflow-hidden mr-2">
+<h6 class="font-weight-bold text-dark mb-0 text-truncate">Project Manager - SAP</h6>
+<div class="text-truncate text-primary">PayPal</div>
+<div class="small text-gray-500"><i class="feather-map-pin"></i> New York, NY
+ </div>
+</div>
+<img class="img-fluid ml-auto" src="img/l5.png" alt="">
+</div>
+<div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+<div class="overlap-rounded-circle">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p4.png" alt="" data-original-title="Sophia Lee">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p5.png" alt="" data-original-title="John Doe">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p6.png" alt="" data-original-title="Julia Cox">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p7.png" alt="" data-original-title="Robert Cook">
+</div>
+<span class="font-weight-bold text-primary">18 connections</span>
+</div>
+<div class="p-3 job-item-footer">
+<small class="text-gray-500"><i class="feather-clock"></i> Posted 3 Days ago</small>
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6">
+<a href="job-profile.html">
+<div class="border job-item mb-3">
+<div class="d-flex align-items-center p-3 job-item-header">
+<div class="overflow-hidden mr-2">
+<h6 class="font-weight-bold text-dark mb-0 text-truncate">Cloud Software Engineer</h6>
+<div class="text-truncate text-primary">Airbnb Inc.</div>
+<div class="small text-gray-500"><i class="feather-map-pin"></i> Manchester, UK
+</div>
+</div>
+<img class="img-fluid ml-auto" src="img/l6.png" alt="">
+</div>
+<div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+<div class="overlap-rounded-circle">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p8.png" alt="" data-original-title="Sophia Lee">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p9.png" alt="" data-original-title="John Doe">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p10.png" alt="" data-original-title="Julia Cox">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p11.png" alt="" data-original-title="Robert Cook">
+</div>
+<span class="font-weight-bold text-primary">18 connections</span>
+</div>
+<div class="p-3 job-item-footer">
+<small class="text-gray-500"><i class="feather-clock"></i> Posted 3 Days ago</small>
+ </div>
+</div>
+</a>
+</div>
+<div class="col-md-6">
+<a href="job-profile.html">
+<div class="border job-item mb-3">
+<div class="d-flex align-items-center p-3 job-item-header">
+<div class="overflow-hidden mr-2">
+<h6 class="font-weight-bold text-dark mb-0 text-truncate">Channel Sales Director</h6>
+<div class="text-truncate text-primary">Slack Inc.</div>
+<div class="small text-gray-500"><i class="feather-map-pin"></i> London, UK
+</div>
+</div>
+<img class="img-fluid ml-auto" src="img/l7.png" alt="">
+</div>
+<div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+<div class="overlap-rounded-circle">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p12.png" alt="" data-original-title="Sophia Lee">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p13.png" alt="" data-original-title="John Doe">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p2.png" alt="" data-original-title="Julia Cox">
+</div>
+<span class="font-weight-bold text-primary">18 connections</span>
+</div>
+<div class="p-3 job-item-footer">
+<small class="text-gray-500"><i class="feather-clock"></i> Posted 3 Days ago</small>
+</div>
+</div>
+</a>
+</div>
+<div class="col-md-6">
+<a href="job-profile.html">
+<div class="border job-item mb-3">
+<div class="d-flex align-items-center p-3 job-item-header">
+<div class="overflow-hidden mr-2">
+<h6 class="font-weight-bold text-dark mb-0 text-truncate">C# Developer</h6>
+<div class="text-truncate text-primary">Dropbox Inc.</div>
+<div class="small text-gray-500"><i class="feather-map-pin"></i> San Francisco, CA
+</div>
+</div>
+<img class="img-fluid ml-auto" src="img/l8.png" alt="">
+</div>
+<div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+<div class="overlap-rounded-circle">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p5.png" alt="" data-original-title="Sophia Lee">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p6.png" alt="" data-original-title="John Doe">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p7.png" alt="" data-original-title="Julia Cox">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p1.png" alt="" data-original-title="Robert Cook">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p3.png" alt="" data-original-title="Robert Cook">
+</div>
+<span class="font-weight-bold text-primary">18 connections</span>
+</div>
+<div class="p-3 job-item-footer">
+<small class="text-gray-500"><i class="feather-clock"></i> Posted 3 Days ago</small>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="tab-pane fade" id="type" role="tabpanel" aria-labelledby="type-tab">
+<div class="box shadow-sm border rounded bg-white mb-3">
+<div class="box-title border-bottom p-3">
+<h6 class="m-0">Careers at Google</h6>
+</div>
+<div class="box-body p-3">
+<p>Google’s mission is to organize the world‘s information and make it universally accessible and useful.
+</p>
+<p class="mb-0">Since our founding in 1998, Google has grown by leaps and bounds. From offering search in a single language we now offer dozens of products and services—including various forms of advertising and web applications for all kinds of tasks—in scores of languages. And starting from two computer science students in a university dorm room, we now have thousands of employees and offices around the world. A lot has changed since the first Google search engine appeared. But some things haven’t changed: our dedication to our users and our belief in the possibilities of the Internet itself.
+</p>
+</div>
+</div>
+<div class="box shadow-sm border rounded bg-white mb-3">
+<div class="box-title border-bottom p-3">
+<h6 class="m-0">Careers at Google</h6>
+</div>
+<div class="box-body p-3">
+<p>Google’s mission is to organize the world‘s information and make it universally accessible and useful.
+</p>
+<p class="mb-0">Since our founding in 1998, Google has grown by leaps and bounds. From offering search in a single language we now offer dozens of products and services—including various forms of advertising and web applications for all kinds of tasks—in scores of languages. And starting from two computer science students in a university dorm room, we now have thousands of employees and offices around the world. A lot has changed since the first Google search engine appeared. But some things haven’t changed: our dedication to our users and our belief in the possibilities of the Internet itself.
+</p>
+</div>
+</div>
+</div>
+<div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="type-tab">
+<div class="box shadow-sm border rounded bg-white mb-3">
+<div class="box-title border-bottom p-3">
+<h6 class="m-0">40 Reviews</h6>
+</div>
+<div class="box-body p-3">
+<div id="retro-comments">
+<div class="reviews-members pt-0">
+<div class="media">
+<a href="#"><img class="mr-3" src="img/p4.png" alt="Generic placeholder image"></a>
+<div class="media-body">
+<div class="form-members-body">
+<textarea rows="1" placeholder="Add a public comment..." class="form-control"></textarea>
+</div>
+<div class="form-members-footer d-flex align-items-center mt-2">
+<b>12,725 Comments</b>
+<span class="ml-auto"><button class="btn btn-light btn-sm" type="button">CANCEL</button> <button class="btn btn-primary btn-sm" type="button">COMMENT</button> </span>
+</div>
+</div>
+</div>
+</div>
+<div class="reviews-members">
+<div class="media">
+<a href="#"><img class="mr-3" src="img/p3.png" alt="Generic placeholder image"></a>
+<div class="media-body">
+<div class="reviews-members-header">
+<h6 class="mb-1"><a class="text-black" href="#">Gurdeep Osahan </a> <small class="text-gray">2 months ago</small></h6>
+</div>
+<div class="reviews-members-body">
+<p> reacthe last order. Even though they had Chefs in their open kitchen they weren’t flexible to dish out few more items. Anyway the food was super specially their stone dessert.</p>
+</div>
+<div class="reviews-members-footer d-flex align-items-center">
+<a class="total-like btn btn-outline-info btn-sm mr-1" href="#"><i class="feather-thumbs-up"></i> 123</a> <a class="total-like btn btn-outline-info btn-sm" href="#"><i class="feather-thumbs-down"></i> 02</a>
+<span dir="rtl" class="total-like-user-main ml-2">
+<div class="overlap-rounded-circle">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p9.png" alt="" data-original-title="Sophia Lee">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p10.png" alt="" data-original-title="John Doe">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p11.png" alt="" data-original-title="Julia Cox">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p12.png" alt="" data-original-title="Robert Cook">
+</div>
+</span>
+</div>
+</div>
+</div>
+</div>
+<div class="reviews-members">
+<div class="media">
+<a href="#"><img alt="Generic placeholder image" src="img/p2.png" class="mr-3"></a>
+ <div class="media-body">
+<div class="reviews-members-header">
+<h6 class="mb-1"><a href="#" class="text-black">Gurdeep Osahan </a> <small class="text-gray">2 months ago</small></h6>
+</div>
+<div class="reviews-members-body">
+<p>Was here impromptu in their first week, reacthe last order. Even though they had Chefs in their open kitchen they weren’t flexible to dish out few more items.</p>
+</div>
+<div class="reviews-members-footer d-flex align-items-center">
+<a href="#" class="total-like btn btn-outline-info btn-sm mr-1"><i class="feather-thumbs-up"></i> 123</a> <a href="#" class="total-like btn btn-outline-info btn-sm"><i class="feather-thumbs-down"></i> 02</a>
+<span class="total-like-user-main ml-2" dir="rtl">
+<div class="overlap-rounded-circle">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p13.png" alt="" data-original-title="Sophia Lee">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p1.png" alt="" data-original-title="John Doe">
+<img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p3.png" alt="" data-original-title="Robert Cook">
+</div>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
+<div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
+<div class="p-5">
+    {%if userimg.user_img%}
+<img src="{{userimg.user_img.url}}" class="img-fluid" alt="Responsive image">
+    {%elif user_detail.user.gender == 'Male'%}
+    <img src="{%static 'img-profile/maleavtr.png'%}" class="img-fluid" alt="Responsive image">
+    {%elif user_detail.user.gender == 'Female'%}
+    <img src="{%static 'img-profile/img_avatar2femle.png'%}" class="img-fluid" alt="Responsive image">
+    {%endif%}
+</div>
+<div class="border-bottom">
+<h6 class="font-weight-bold text-dark mb-1 mt-0">{{user_detail.user}}</h6>
+    {%if user_detail.bio%}
+<p class="mb-0 text-muted"><i>{{user_detail.bio}}</i>
+</p>
+    {%endif%}
+</div>
+   {%if user_detail.user != request.user%}
+
+    <div class="p-3">
+<div class="d-flex align-items-top mb-2">
+<p class="mb-0 text-dark font-weight-bold">Common Connections</p>
+<p class="font-weight-bold text-info mb-0 mt-0 ml-auto">358</p>
+
+</div>
+
+</div>
+    {%endif%}
+
+
+</div>
+<div class="box shadow-sm mb-3 rounded bg-white ads-box text-center">
+
+<div class="p-3 border-bottom">
+<h6 class="font-weight-bold text-dark">social profiles</h6>
+
+</div>
+<div class="p-3">
+    {%if user_social_links.user_id == request.user.id%}
+     <form method="post" action="{%url 'usersocprofile'%}">
+        {%csrf_token%}
+<div class="position-relative icon-form-control mb-2">
+
+<i class="feather-instagram position-absolute text-warning"></i>
+    {%if user_social_links.insta_link%}
+<input placeholder="Add Instagram link" name="insta_link" type="url" class="form-control" value="{{user_social_links.insta_link}}">
+    {%else%}
+    <input placeholder="Add Instagram link" name="insta_link" type="url" class="form-control" >
+    {%endif%}
+
+</div>
+   <div class="position-relative icon-form-control mb-2">
+
+<i class="feather-facebook position-absolute text-primary"></i>
+    {%if user_social_links.fb_link%}
+<input placeholder="Add Facebook link" name="fb_link" type="url" class="form-control" value="{{user_social_links.fb_link}}">
+    {%else%}
+    <input placeholder="Add Facebook link" name="fb_link" type="url" class="form-control" >
+    {%endif%}
+
+</div>
+
+     <div class="position-relative icon-form-control mb-2">
+
+<i class="feather-youtube position-absolute text-danger"></i>
+    {%if user_social_links.fb_link%}
+<input placeholder="Add Youtube link" name="youtube_link" type="url" class="form-control" value="{{user_social_links.youtube_link}}">
+    {%else%}
+    <input placeholder="Add Youtube link" name="youtube_link" type="url" class="form-control" >
+    {%endif%}
+
+</div>
+
+    <div class="position-relative icon-form-control mb-2">
+
+<i class="feather-github position-absolute text-dark"></i>
+    {%if user_social_links.git_link%}
+<input placeholder="Add Git link" name="git_link" type="url" class="form-control" value="{{user_social_links.git_link}}">
+    {%else%}
+    <input placeholder="Add Git link" name="git_link" type="url" class="form-control" >
+    {%endif%}
+
+</div>
+         <div class="overflow-hidden text-center p-3">
+<button class="font-weight-bold btn btn-light rounded p-3 d-block" type="submit"> Update Social Profiles </button>
+</div>
+     </form>
+{%endif%}
+
+<!--for other usersprofile-->
+ {%if user_social_links.user_id != request.user.id%}
+<div class="position-relative icon-form-control mb-2">
+
+<i class="feather-instagram position-absolute text-warning"></i>
+    {%if user_social_links.insta_link%}
+    <p><a href="{{user_social_links.insta_link}}" target="_blank">Instagram Profile</a></p>
+    {%else%}
+    <p>No Instagram Profile</p>
+    {%endif%}
+
+</div>
+ <div class="position-relative icon-form-control mb-2">
+
+<i class="feather-facebook position-absolute text-primary"></i>
+    {%if user_social_links.fb_link%}
+    <p><a href="{{user_social_links.fb_link}}" target="_blank">Facebook Profile</a></p>
+    {%else%}
+    <p>No Facebook Profile</p>
+    {%endif%}
+
+</div>
+     <div class="position-relative icon-form-control mb-2">
+
+<i class="feather-youtube position-absolute text-danger"></i>
+
+    {%if user_social_links.youtube_link%}
+    <p><a href="{{user_social_links.youtube_link}}" target="_blank">Youtube Channel</a></p>
+    {%else%}
+    <p>No Youtube Channel</p>
+    {%endif%}
+
+</div>
+    <div class="position-relative icon-form-control mb-2">
+
+<i class="feather-github position-absolute text-dark"></i>
+
+    {%if user_social_links.git_link%}
+    <p><a href="{{user_social_links.git_link}}" target="_blank">Github Link</a></p>
+    {%else%}
+    <p>No Github Link</p>
+    {%endif%}
+
+</div>
+{%endif%}
+</div>
+
+</div>
+</aside>
+<aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
+<div class="box shadow-sm border rounded bg-white mb-3">
+<div class="box-title border-bottom p-3">
+<h6 class="m-0">Similar pages</h6>
+</div>
+<div class="box-body p-3">
+<div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="img/l1.png" alt="">
+</div>
+<div class="font-weight-bold mr-2">
+<div class="text-truncate">Amazon</div>
+<div class="small text-gray-500">Internet
+</div>
+</div>
+<span class="ml-auto"><button type="button" class="btn btn-light btn-sm text-nowrap"><i class="feather-plus"></i> Follow</button>
+</span>
+</div>
+<div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="img/l2.png" alt="">
+</div>
+<div class="font-weight-bold mr-2">
+<div class="text-truncate">Apple</div>
+<div class="small text-gray-500">Consumer Electronics
+</div>
+</div>
+<span class="ml-auto"><button type="button" class="btn btn-light btn-sm text-nowrap"><i class="feather-plus"></i> Follow</button>
+</span>
+</div>
+<div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="img/l3.png" alt="">
+</div>
+<div class="font-weight-bold mr-2">
+<div class="text-truncate">Microsoft</div>
+<div class="small text-gray-500">Computer Software
+</div>
+</div>
+<span class="ml-auto"><button type="button" class="btn btn-light btn-sm text-nowrap"><i class="feather-plus"></i> Follow</button>
+</span>
+</div>
+<div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="img/l4.png" alt="">
+</div>
+<div class="font-weight-bold mr-2">
+<div class="text-truncate">Facebook</div>
+<div class="small text-gray-500">Internet
+</div>
+</div>
+<span class="ml-auto"><button type="button" class="btn btn-light btn-sm text-nowrap"><i class="feather-plus"></i> Follow</button>
+</span>
+</div>
+<div class="d-flex align-items-center osahan-post-header people-list">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="img/l5.png" alt="">
+</div>
+<div class="font-weight-bold mr-2">
+<div class="text-truncate">Netflix</div>
+<div class="small text-gray-500">Entertainment
+</div>
+</div>
+<span class="ml-auto"><button type="button" class="btn btn-light btn-sm text-nowrap"><i class="feather-plus"></i> Follow</button>
+</span>
+</div>
+</div>
+</div>
+<div class="box shadow-sm border rounded bg-white mb-3">
+<div class="box-title border-bottom p-3">
+<h6 class="m-0">People also viewed</h6>
+</div>
+<div class="box-body p-3">
+<div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="img/p4.png" alt="">
+</div>
+<div class="font-weight-bold mr-2">
+<div class="text-truncate">Sophia Lee</div>
+<div class="small text-gray-500">@Harvard
+</div>
+</div>
+<span class="ml-auto"><button type="button" class="btn btn-outline-primary btn-sm">Connent</button>
+</span>
+</div>
+<div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="img/p9.png" alt="">
+</div>
+<div class="font-weight-bold mr-2">
+<div class="text-truncate">John Doe</div>
+<div class="small text-gray-500">Traveler
+</div>
+</div>
+<span class="ml-auto"><button type="button" class="btn btn-outline-primary btn-sm">Connent</button>
+</span>
+</div>
+<div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="img/p10.png" alt="">
+</div>
+<div class="font-weight-bold mr-2">
+<div class="text-truncate">Julia Cox</div>
+<div class="small text-gray-500">Art Designer
+</div>
+</div>
+<span class="ml-auto"><button type="button" class="btn btn-outline-primary btn-sm">Connent</button>
+</span>
+</div>
+<div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="img/p11.png" alt="">
+</div>
+<div class="font-weight-bold mr-2">
+<div class="text-truncate">Robert Cook</div>
+<div class="small text-gray-500">@Photography
+</div>
+</div>
+<span class="ml-auto"><button type="button" class="btn btn-outline-primary btn-sm">Connent</button>
+</span>
+</div>
+<div class="d-flex align-items-center osahan-post-header people-list">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="img/p12.png" alt="">
+</div>
+ <div class="font-weight-bold mr-2">
+<div class="text-truncate">Richard Bell</div>
+<div class="small text-gray-500">@Envato
+</div>
+</div>
+<span class="ml-auto"><button type="button" class="btn btn-outline-primary btn-sm">Connent</button>
+</span>
+</div>
+</div>
+</div>
+<div class="box shadow-sm mb-3 border rounded bg-white ads-box text-center">
+<img src="img/ads1.png" class="img-fluid" alt="Responsive image">
+<div class="p-3 border-bottom">
+<h6 class="font-weight-bold text-gold">Olink Premium</h6>
+<p class="mb-0 text-muted">Grow &amp; nurture your network</p>
+</div>
+<div class="p-3">
+<button type="button" class="btn btn-outline-gold pl-4 pr-4"> ACTIVATE </button>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<script src="{%static 'js/jquery.min.js'%}" type="text/javascript"></script>
+<script src="{%static 'js/bootstrap.bundle.min.js'%}" type="text/javascript"></script>
+
+<script type="text/javascript" src="{%static 'js/slick.min.js'%}"></script>
+
+<script src="{%static 'js/jsscript.js'%}" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+ <script>
+                $('.like-form').submit(function(e){
+                e.preventDefault()
+
+                const post_id = $(this).attr('id')
+                const likeText = $(`.like-btn${post_id}`).text()
+
+                const trim = $.trim(likeText)
+
+
+
+                const url = $(this).attr('action')
+
+                let res;
+                const likes = $(`.like-count${post_id}`).text()
+
+                const trimCount = parseInt(likes)
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'post_id':post_id,
+                    },
+                    success: function(response) {
+                        if(trim === 'liked') {
+                            $(`.like-btn${post_id}`).html('<i class="feather-heart " id="like-btn"  style="font-size:15px">like</i>')
+                            res = trimCount - 1
+                        } else {
+                             if(trim === 'like'){
+                             $(`.like-btn${post_id}`).html('<i class="fa fa-heart" style="font-size:15px;color:red" id="unlike_btn" >liked</i>')
+                            res = trimCount + 1
+                             }
+
+                        }
+
+                        $(`.like-count${post_id}`).text(res)
+                    },
+                    error: function(response) {
+                        console.log('error', response)
+                    }
+                })
+
+            })
+
+
+
+
+      </script>
+</body></html>

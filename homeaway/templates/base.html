@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+{%load static%}
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" type="image/png" href="{%static 'pageimages/fav.png'%}">
+<title>ebuddy</title>
+
+<link rel="stylesheet" type="text/css" href="{%static 'css/slick.min.css'%}" />
+<link rel="stylesheet" type="text/css" href="{%static 'css/slick-theme.min.css'%}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{%static 'css/feather.css'%}" rel="stylesheet" type="text/css">
+
+<link href="{%static 'css/bootstrap.min.css'%}" rel="stylesheet">
+
+<link href="{%static 'css/style.css'%}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand navbar-dark bg-dark osahan-nav-top p-0 sticky-top">
+<div class="container">
+<a class="navbar-brand mr-2" href="index.html"><img src="pageimages/logo.svg" alt="">
+</a>
+<form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
+<div class="input-group">
+<input type="text" class="form-control shadow-none border-0" placeholder="Search people, jobs & more..." aria-label="Search" aria-describedby="basic-addon2">
+<div class="input-group-append">
+<button class="btn" type="button">
+<i class="feather-search"></i>
+</button>
+</div>
+</div>
+</form>
+<ul class="navbar-nav ml-auto d-flex align-items-center">
+
+<li class="nav-item dropdown no-arrow d-sm-none">
+<a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<i class="feather-search mr-2"></i>
+</a>
+
+<div class="dropdown-menu dropdown-menu-right p-3 shadow-sm animated--grow-in" aria-labelledby="searchDropdown">
+<form class="form-inline mr-auto w-100 navbar-search">
+<div class="input-group">
+<input type="text" class="form-control border-0 shadow-none" placeholder="Search people, jobs and more..." aria-label="Search" aria-describedby="basic-addon2">
+<div class="input-group-append">
+<button class="btn" type="button">
+<i class="feather-search"></i>
+</button>
+</div>
+</div>
+</form>
+</div>
+</li>
+
+
+
+<li class="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
+<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<i class="feather-message-square"></i>
+
+<span class="badge badge-danger badge-counter">8</span>
+</a>
+
+<div class="dropdown-list dropdown-menu dropdown-menu-right shadow-sm">
+<h6 class="dropdown-header">
+Message Center
+</h6>
+
+<a class="dropdown-item d-flex align-items-center" href="messages.html">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="https://askbootstrap.com/preview/Olink/light/img/p4.png" alt="">
+<div class="status-indicator bg-success"></div>
+</div>
+<div class="overflow-hidden">
+<div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+<div class="small text-gray-500">Chicken the Dog · 2w</div>
+</div>
+</a>
+<a class="dropdown-item text-center small text-gray-500" href="messages.html">Read More Messages</a>
+</div>
+</li>
+<li class="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
+<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<i class="feather-bell"></i>
+
+<span class="badge badge-info badge-counter">6</span>
+</a>
+
+<div class="dropdown-list dropdown-menu dropdown-menu-right shadow-sm">
+<h6 class="dropdown-header">
+Alerts Center
+</h6>
+
+<a class="dropdown-item d-flex align-items-center" href="notifications.html">
+<div class="mr-3">
+<div class="icon-circle bg-warning">
+<i class="feather-folder text-white"></i>
+</div>
+</div>
+<div>
+
+</div>
+</a>
+<a class="dropdown-item text-center small text-gray-500" href="notifications.html">Show All Alerts</a>
+
+</div>
+</li>
+
+<li class="nav-item dropdown no-arrow ml-1 osahan-profile-dropdown">
+<a class="nav-link dropdown-toggle pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ {%if request.user.userimg.user_img%}
+<img src="{{request.user.userimg.user_img.url}}" class="img-profile rounded-circle" alt="Responsive image">
+
+
+    {%elif request.user.gender == 'Male'%}
+    <img src="{%static 'img-profile/maleavtr.png'%}" class="img-profile rounded-circle " alt="Responsive image">
+      {%elif request.user.gender == 'Female'%}
+    <img src="{%static 'img-profile/img_avatar2femle.png'%}" class="img-profile rounded-circle" alt="Responsive image">
+    {%endif%}
+
+</a>
+
+<div class="dropdown-menu dropdown-menu-right shadow-sm">
+<div class="p-3 d-flex align-items-center">
+<div class="dropdown-list-image mr-3">
+    {%if request.user.userimg.user_img%}
+<img src="{{request.user.userimg.user_img.url}}" class=" rounded-circle" alt="Responsive image">
+
+
+    {%elif request.user.gender == 'Male'%}
+    <img src="{%static 'img-profile/maleavtr.png'%}" class="rounded-circle " alt="Responsive image">
+      {%elif request.user.gender == 'Female'%}
+    <img src="{%static 'img-profile/img_avatar2femle.png'%}" class="rounded-circle" alt="Responsive image">
+    {%endif%}
+
+<div class="status-indicator bg-success"></div>
+</div>
+<div class="font-weight-bold">
+<div class="text-truncate">{{request.user.get_full_name}}</div>
+<div class="small text-gray-500">{{request.user}}</div>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<!--<a class="dropdown-item" href="profile.html"><i class="feather-edit mr-1"></i> My Account</a>-->
+        <a class="dropdown-item" href="{% url 'user-profile'%}"><i class="feather-user mr-1"></i>UpdateProfile </a>
+
+<div class="dropdown-divider"></div>
+<a class="dropdown-item" href="{%url 'resetpassword'%}"><i class="feather-lock mr-1"></i>ChangePassword</a>
+<div class="dropdown-divider"></div>
+<a class="dropdown-item" href="{%url 'signout'%}"><i class="feather-log-out mr-1"></i> Logout</a>
+</div>
+</li>
+</ul>
+</div>
+</nav>
+
+<div class="py-4">
+<div class="container">
+<div class="row">
+{%block body_block%}
+
+{%endblock%}
+ </div>
+</div>
+</div>
+<script src="{%static 'js/jquery.min.js'%}" type="text/javascript"></script>
+<script src="{%static 'js/bootstrap.bundle.min.js'%}" type="text/javascript"></script>
+
+<script type="text/javascript" src="{%static 'js/slick.min.js'%}"></script>
+
+<script src="{%static 'js/jsscript.js'%}" type="text/javascript"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+
+
+</body>
+</html>
