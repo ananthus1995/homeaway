@@ -1,1 +1,1 @@
-web: gunicorn connectwithme.wsgi --log-file -
+web: gunicorn ebuddy.wsgi --log-file -
