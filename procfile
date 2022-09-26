@@ -1,1 +1,1 @@
-web: gunicorn ebuddy.wsgi --log-file -
+web: gunicorn homeaway.wsgi --log-file -
