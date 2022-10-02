@@ -352,50 +352,61 @@
 
       {%for people in peopleyou_know%}
 
+    <form method="post" class="follow_unfollow" action="{% url 'followunfollow'%}" id="{{user_detail.user.id}}">
+
       <div class="d-flex align-items-center osahan-post-header people-list mb-2">
         <div class="dropdown-list-image mr-3">
-          {%if people.userimg.user_img%}
-          <img class="rounded-circle" src="{{people.userimg.user_img.url}}" alt="">
-          {%elif people.gender == 'Male'%}
+          <a href="{%url 'usersprofileview' people.user people.user_id%}">
+          {%if people.user.userimg.user_img%}
+          <img class="rounded-circle" src="{{people.user.userimg.user_img.url}}" alt="">
+          {%elif people.user.gender == 'Male'%}
           <img class="rounded-circle" src="{%static 'img-profile/maleavtr.png'%}" alt="">
-          {%elif people.gender == 'Female'%}
+          {%elif people.user.gender == 'Female'%}
           <img class="rounded-circle" src="{%static 'img-profile/img_avatar2femle.png'%}" alt="">
           {%endif%}
           <div class="status-indicator bg-success"></div>
+          </a>
         </div>
         <div class="font-weight-bold mr-2">
-          <div class="text-truncate">{{people.get_full_name}}</div>
+          <div class="text-truncate"><a href="{%url 'usersprofileview' people.user people.user_id%}">{{people.user.get_full_name}}</a></div>
 <div class="small text-gray-500"></div>
         </div>
         <span class="ml-auto">
-          <button type="button" class="btn btn-light btn-sm">
-            <i class="feather-user-plus"></i>
+           <button type="submit"  class="unstyled-button accept-btn{{flwrqst.follower_id}}" style="border: none !important;background: none; outline: none;" id="acceptbtns">
+
+            <i class="feather-user-plus btn-primary">follow</i>
+<!--            <i class="feather-user btn-secondary">Request Sent</i>-->
           </button>
         </span>
       </div>
+    </form>
       {%endfor%}
     </div>
   </div>
   <div class="box shadow-sm border rounded bg-white mb-3">
     <div class="box-title border-bottom p-3">
-      <h6 class="m-0">People you might know</h6>
+      <h6 class="m-0">Buddy Request</h6>
     </div>
     <div class="box-body p-3">
 
 
+      {%if reqst%}
+
       {%for flwrqst in reqst%}
 
       <div class="d-flex align-items-center osahan-post-header people-list mb-2">
+       <a href="{%url 'usersprofileview' flwrqst.follower flwrqst.follower_id%}">
         <div class="dropdown-list-image mr-3">
           {%if flwrqst.follower.userimg.user_img%}
-          <img class="rounded-circle" src="{{flwrqst.follower.userimg.user_img.url}}" alt="">
+
+            <img class="rounded-circle" src="{{flwrqst.follower.userimg.user_img.url}}" alt="">
           {%elif flwrqst.user.gender == 'Male'%}
           <img class="rounded-circle" src="{%static 'img-profile/maleavtr.png'%}" alt="">
           {%elif flwrqst.user.gender == 'Female'%}
           <img class="rounded-circle" src="{%static 'img-profile/img_avatar2femle.png'%}" alt="">
           {%endif%}
           <div class="status-indicator bg-success"></div>
-        </div>
+        </div></a>
         <div class="font-weight-bold mr-2">
           <div class="text-truncate">{{flwrqst.follower}}</div>
 <div class="small text-gray-500"></div>
@@ -403,22 +414,27 @@
         <span class="ml-auto">
 <form action="{% url 'reqstmanages'  %}" method="POST" class='buddyrequest-form' id='{{flwrqst.follower_id}}'>
         {%csrf_token%}
-           <input type="hidden"  name="follower_id" value={{flwrqst.follower_id}}>
+
  <button type="submit"  class="unstyled-button accept-btn{{flwrqst.follower_id}}" style="border: none !important;background: none; outline: none;" id="acceptbtns">
 
        {% if  flwrqst.status == 'pending'%}
-<i class="feather-plus btn-primary" id="accept_btn"  style="font-size:15px">Accept</i>
-<!--   <i class="feather-minus btn-secondary" id="decline_btn"  style="font-size:15px">Decline</i>-->
+<span class=" btn-outline-success" id="accept_btn"  style="font-size:16px">Accept</span>
+<!--   <i class=" btn-outline-success" id="cancel_btn"  style="font-size:16px">Cancel</i>-->
+
 {% elif flwrqst.status == 'accepted'%}
-   <i class="fa fa-minus btn-danger" style="font-size:15px;" id="remove_btn" >Remove</i>
+   <span class="btn-outline-danger" style="font-size:16px;" id="remove_btn" >UndoAccept</span>
  {% endif %}
-<!--<i class="feather-minus btn-secondary" id="decline_btn"  style="font-size:15px">Decline</i>-->
+
+
  </button>
  </form>
         </span>
       </div>
 
       {%endfor%}
+      {%else%}
+      No Requests.
+      {%endif%}
     </div>
   </div>
   <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center overflow-hidden">
@@ -590,51 +606,52 @@
 </script>
 
 <script>
-$('.buddyrequest-form').submit(function(e){
-                e.preventDefault()
+$('.buddyrequest-form').submit(function(e) {
+  e.preventDefault()
 
-                const follower_id = $(this).attr('id')
-                const acceptText = $(`.accept-btn${follower_id}`).text()
+  const follower_id = $(this).attr('id')
+  const acceptText = $(`.accept-btn${follower_id}`).text()
 
-                const trim = $.trim(acceptText)
+  const trim = $.trim(acceptText)
 
-                //console.log(trim)
-                //console.log(follower_id)
+  //console.log(trim)
+  //console.log(follower_id)
 
-                const url = $(this).attr('action')
-
-
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: {
-                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-                        'followers_id':follower_id,
-                        'btn_status':trim,
-                    },
-                    success: function(response) {
-                        if(trim === 'Accept') {
-                            $(`.accept-btn${follower_id}`).html('<i class="fa fa-minus btn-danger" style="font-size:15px;" id="remove_btn" >Remove</i>')
+  const url = $(this).attr('action')
 
 
-                        } else {
-                             if(trim === 'Remove'){
-                                  $(`.accept-btn${follower_id}`).html('<i class="feather-plus btn-primary" id="accept_btn"  style="font-size:15px">Accept</i>')
+  $.ajax({
+    type: 'POST',
+    url: url,
+    data: {
+      'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+      'followers_id': follower_id,
+      'btn_status': trim,
+    },
+    success: function(response) {
+      console.log(response)
+      if (trim === 'Accept') {
+        $(`.accept-btn${follower_id}`).html('<span class="btn-outline-danger" style="font-size:16px;" id="remove_btn" >UndoAccept</span>')
 
 
-                             }
+      }
+      else {
+        if (trim === 'UndoAccept') {
+          $(`.accept-btn${follower_id}`).html('<span class="btn-outline-success" id="accept_btn"  style="font-size:16px">Accept</span>')
 
-                        }
+
+        }
+
+      }
 
 
-                    },
-                    error: function(response) {
-                        console.log('error', response)
-                    }
-                })
+    },
+    error: function(response) {
+      console.log('error', response)
+    }
+  })
 
-            })
-
+})
       </script>
 </aside>
 {%endblock%}

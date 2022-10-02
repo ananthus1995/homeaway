@@ -64,7 +64,9 @@ class SignupForm(UserCreationForm):
                 'token': token_generator.make_token(user),
             }
         )
+
         user.email_user(subject, message, html_message=message)
+
 
 class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):

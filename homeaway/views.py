@@ -1,10 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView,DeleteView, CreateView, ListView, UpdateView, DetailView, FormView, RedirectView
 from .models import Users, Post, Profile,Like, FollowersCount,UserImages,UserSocialLinks
-from django.urls import reverse_lazy
-import random
 from django.contrib import messages
-from django.core.mail import send_mail
 from django.contrib.auth import authenticate,logout, login, update_session_auth_hash
 from .forms import SignupForm, LoginForm, UserprofileForm,Password_ResetForm
 from django.urls import reverse_lazy
@@ -12,11 +9,14 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
 from .token import token_generator
 from django.contrib.auth.decorators import login_required
+
 from django.http import JsonResponse
+
 from django.db.models.query_utils import Q
+
 from itertools import chain
-from django.contrib.sessions.models import Session
-from django.utils import timezone
+# from django.contrib.sessions.models import Session
+
 
 
 
@@ -38,36 +38,28 @@ class Home(TemplateView):
         post_list = Post.objects.filter(user_id=self.request.user.id).order_by('-created_at')
         users_following = []
         posts = []
-        u_list = []
-        following_list = FollowersCount.objects.filter(follower_id=self.request.user.id)
+        ppl_may_konw = []
+
+        following_list = FollowersCount.objects.filter(follower_id=self.request.user.id,status='accepted')
 
         for user in following_list:
             users_following.append(user)
 
-        for uid in users_following:
-            all_following_posts= Post.objects.filter(user_id=uid.user_id)
+        for uid_obj in users_following:
+            all_following_posts= Post.objects.filter(user_id=uid_obj.user_id)
             posts.append(all_following_posts)
             post_list = list(chain(*posts))
 
-        allusers=Users.objects.all()
-        for user in allusers:
-            if user != self.request.user:
-                u_list.append(user)
-        # sessions = Session.objects.filter(expire_date__gte=timezone.now())
-        # uid_list = []
-        # for session in sessions:
-        #     data = session.get_decoded()
-        #     uid_list.append(data.get('_auth_user_id', None))
-        #
-        #     # Query all logged in users based on id list
-        # logged_in_users= Users.objects.filter(id__in=uid_list)
-        # print(logged_in_users)
+            ppl_may_konw= FollowersCount.objects.filter(follower_id=uid_obj.user_id).exclude(user_id=self.request.user.id)
+
+
         followrqst= FollowersCount.objects.filter(user_id=self.request.user.id,status='pending')
+
 
         context={
             'reqst':followrqst,
             'all_posts': post_list,
-            'peopleyou_know': u_list
+            'peopleyou_know': ppl_may_konw
         }
 
 
@@ -105,6 +97,7 @@ class ActivateView(RedirectView):
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
             user = Users.objects.get(pk=uid)
+            print(user)
         except (TypeError, ValueError, OverflowError, Users.DoesNotExist):
             user = None
 
@@ -373,27 +366,39 @@ class UserProfiles(DetailView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         uimg= UserImages.objects.get(user_id=self.kwargs.get('userid'))
-        user_posts=Post.objects.filter(user_id=self.kwargs.get('userid')).order_by('-created_at')
+
+        user_posts = []
+        if self.kwargs.get('userid')==self.request.user.id:
+            user_posts = Post.objects.filter(user_id=self.kwargs.get('userid')).order_by('-created_at')
+
         social_links= UserSocialLinks.objects.get(user_id=self.kwargs.get('userid'))
 
         if FollowersCount.objects.filter(user=self.kwargs.get('userid'), follower=self.request.user, status='accepted'):
             f_button_value='Following'
+            user_posts = Post.objects.filter(user_id=self.kwargs.get('userid')).order_by('-created_at')
 
         elif FollowersCount.objects.filter(user=self.kwargs.get('userid'), follower=self.request.user, status='pending'):
             f_button_value = 'Requested'
+
+        # elif FollowersCount.objects.filter(follower=self.kwargs.get('userid'), user=self.request.user,status='pending'):
+        #     f_button_value = 'Accept Request'
+
+        elif FollowersCount.objects.filter(user=self.request.user, follower=self.kwargs.get('userid'), status='accepted'):
+            f_button_value = 'FollowBack'
+
         else:
             f_button_value = 'Follow'
         followers_count= len(FollowersCount.objects.filter(user=self.kwargs.get('userid'), status='accepted'))
         following_count= len(FollowersCount.objects.filter(follower=self.kwargs.get('userid'),status='accepted'))
-
+        user_posts_count = Post.objects.filter(user_id=self.kwargs.get('userid'))
 
         data['userimg'] = uimg
         data['user_posts']=user_posts
-        data['post_count']=len(user_posts)
         data['followers_count']= followers_count
         data['following_count'] = following_count
         data['f_button_value']=f_button_value
         data['user_social_links']= social_links
+        data['user_posts_count']=len(user_posts_count)
         return data
 
 
@@ -415,6 +420,7 @@ class FollowUnfollow(View):
             return redirect('usersprofileview', pk=user_obj, userid=uid)
         else:
             FollowersCount.objects.create(user=user_obj, follower= follower_obj,status='pending')
+
             return redirect('usersprofileview', pk=user_obj, userid=uid)
 
 
@@ -424,8 +430,8 @@ def buddy_request_manage(request):
         folowerid= request.POST.get('followers_id')
 
         btn_status=request.POST.get('btn_status')
-        print(btn_status)
-        print(folowerid)
+        # print(btn_status)
+        # print(folowerid)
 
         allfollower_data=FollowersCount.objects.filter(user_id=request.user.id, follower_id=folowerid)
         for alldata in allfollower_data:
@@ -437,11 +443,11 @@ def buddy_request_manage(request):
                     alldata.save()
 
             if alldata.status=='accepted':
-                if btn_status == 'Remove':
-                    alldata.status = 'rejected'
+                if btn_status == 'UndoAccept':
+                    alldata.status = 'pending'
                     alldata.save()
             data = {
-                'value': alldata.status
+                'value': btn_status
 
                 }
 

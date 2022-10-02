@@ -167,12 +167,13 @@ Alerts Center
 <div class="profile-left">
 <h5 class="font-weight-bold text-dark mb-1 mt-0">{{user_detail.user.get_full_name}}<span class="text-info"><i data-toggle="tooltip" data-placement="top" title="" class="feather-check-circle" data-original-title="Verified"></i></span></h5>
 <p class="mb-0 text-muted font-weight-bold" style="color:#2974c1!important;">
-    {%if post_count == 0%}
+
+    {%if user_posts_count == 0%}
     0 Post
-    {%elif post_count == 1%}
+    {%elif user_posts_count == 1%}
     1 Post
     {%else%}
-    {{post_count}} Posts
+    {{user_posts_count}} Posts
     {%endif%}| {{following_count}} following | {{followers_count}} followers</p>
 </div>
 <div class="profile-right ml-auto">
@@ -188,12 +189,17 @@ Alerts Center
     <a href="{%url 'user-profile'%}" class="btn btn-primary" > <i class="feather-user-check"></i> Profile Setings </a>
     {%else%}
 {%if f_button_value == 'Following'%}
-<button type="submit" class="btn btn-success  following" > <i class="feather-user-check"></i> Following</button>
+<button type="submit" class="btn btn-success  following" > <i class="feather-user-check"></i> {{f_button_value}}</button>
     {%elif f_button_value == 'Requested'%}
-    <button type="submit" class="btn btn-secondary  requested" > <i class="feather-user-plus"></i> Requested</button>
+    <button type="submit" class="btn btn-secondary  requested" > <i class="feather-user-plus"></i> {{f_button_value}}</button>
+
+
+    {%elif f_button_value == 'FollowBack'%}
+    <p>{{user_detail.user.get_full_name}} follows you</p>
+        <button type="submit" class="btn btn-primary  requested" > <i class="feather-user-plus"></i> {{f_button_value}}</button>
 
     {%else%}
-    <button type="submit" class="btn btn-primary follow"> <i class="feather-user-plus"></i> Follow</button>
+    <button type="submit" class="btn btn-primary follow"> <i class="feather-user-plus"></i> {{f_button_value}}</button>
 {%endif%}
 {%endif%}
     </form>
