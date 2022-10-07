@@ -38,9 +38,12 @@ class Home(TemplateView):
         post_list = Post.objects.filter(user_id=self.request.user.id).order_by('-created_at')
         users_following = []
         posts = []
-        ppl_may_konw = []
+
+        followings_list = []
+        followers_list = []
 
         following_list = FollowersCount.objects.filter(follower_id=self.request.user.id,status='accepted')
+        followrqst = FollowersCount.objects.filter(user_id=self.request.user.id, status='pending')
 
         for user in following_list:
             users_following.append(user)
@@ -50,20 +53,28 @@ class Home(TemplateView):
             posts.append(all_following_posts)
             post_list = list(chain(*posts))
 
-            ppl_may_konw= FollowersCount.objects.filter(follower_id=uid_obj.user_id).exclude(user_id=self.request.user.id)
+        following_users= FollowersCount.objects.filter(follower_id=self.request.user.id)
+        for f in following_users:
+            followings_list.append(f.user_id)
 
+        followers= FollowersCount.objects.filter(user_id=self.request.user.id)
+        for flwr in followers:
+            followers_list.append(flwr.follower_id)
 
-        followrqst= FollowersCount.objects.filter(user_id=self.request.user.id,status='pending')
+        new_users_list= followings_list+followers_list
+        # print(new_users_list)
+
+        all_users = Users.objects.all().exclude(id=self.request.user.id).order_by('-id')
+
+        user_res = [user for user in all_users if user.id not in new_users_list]
+
 
 
         context={
             'reqst':followrqst,
             'all_posts': post_list,
-            'peopleyou_know': ppl_may_konw
+            'peopleyou_know': user_res
         }
-
-
-
 
         return render(request, 'home.html', context)
 
@@ -455,7 +466,22 @@ def buddy_request_manage(request):
         return redirect('userhome')
 
 
+@login_required
+def ppl_folow_unflw(request):
+    if request.method=="POST":
+        userid= request.POST.get('user_id')
+        btn_status=request.POST.get('btn_status')
+        if btn_status=='follow':
+            following_data= FollowersCount.objects.create(user_id=userid, follower_id=request.user.id,status='pending')
+            following_data.save()
 
+        data = {
+            'value': btn_status
+
+             }
+
+        return JsonResponse(data, safe=False)
+    return redirect('userhome')
 
 
 
