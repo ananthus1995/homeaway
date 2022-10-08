@@ -353,7 +353,7 @@
       {%for people in peopleyou_know|slice:":4"%}
 
 
-    <form method="post" class="follow_unfollow" action="{% url 'followunfollows'%}" id="{{people.user_id}}">
+    <form method="post" class="follow_unfollow" action="{% url 'followunfollows'%}" id="{{people.id}}">
       {%csrf_token%}
       <div class="d-flex align-items-center osahan-post-header people-list mb-2">
         <div class="dropdown-list-image mr-3">
@@ -373,19 +373,16 @@
 
 </div>
         </div>
-        <span class="ml-auto">
-          <button type="submit"  class="unstyled-button follow-btn" style="border: none !important;background: none; outline: none;" id="followbtns">
+ <div class="ml-auto  fol_btn{{people.id}}" >
+
+       {% if  people%}
+<button type="submit" class="btn btn-success btn-sm"  ><i class="feather-user-plus">Follow</i></button>
 
 
-
-
-            <span class="btn-outline-secondary" style="font-size:16px;" id="requested_btn" >follow</span>
-<!--      <span class="btn-outline-success" style="font-size:16px;" id="follow_btn" >sdffollow</span>-->
-
-
-
- </button>
-        </span>
+{%else%}
+   <button type="submit" class="btn btn-light btn-sm">Requested</button>
+ {% endif %}
+   </div>
       </div>
     </form>
 
@@ -422,7 +419,7 @@
         <div class="font-weight-bold mr-2">
           <a href="{%url 'usersprofileview' flwrqst.follower flwrqst.follower_id%}">
             <div class="text-truncate">{{flwrqst.follower.get_full_name}}</div></a>
-<div class="small text-gray-500"></div>
+<div class="small text-gray-500">{{flwrqst.follower}}</div>
         </div>
         <span class="ml-auto">
 <form action="{% url 'reqstmanages'  %}" method="POST" class='buddyrequest-form' id='{{flwrqst.follower_id}}'>
@@ -675,15 +672,11 @@ $('.follow_unfollow').submit(function(e) {
   e.preventDefault()
 
   const user_id = $(this).attr('id')
-  const followText = $(`.follow-btn`).text()
-
-  const trim = $.trim(followText)
-
-  console.log(trim)
+  const followText = $(`.fol_btn${user_id}`).text()
+  console.log(followText)
   console.log(user_id)
-
+  const trim = $.trim(followText)
   const url = $(this).attr('action')
-
 
   $.ajax({
     type: 'POST',
@@ -694,21 +687,19 @@ $('.follow_unfollow').submit(function(e) {
       'btn_status': trim,
     },
     success: function(response) {
-      if (trim === 'follow') {
-        $(`.follow-btn`).html('<span class="btn-outline-secondary" style="font-size:16px;" id="requested_btn" >requested</span>')
 
-
+      if (trim === 'Follow') {
+        $(`.fol_btn${user_id}`).html(' <button type="submit" class="btn btn-light btn-sm">Requested</button>')
 
       }
+
       else {
-        if (trim === 'requested') {
-          $(`.accept-btn`).html('<span class="btn-outline-success" id="follow_btn"  style="font-size:16px">follow</span>')
+        if (trim === 'Requested') {
+          $(`.fol_btn${user_id}`).html('<button type="submit" class="btn btn-success btn-sm"  ><i class="feather-user-plus">Follow</i></button>')
 
-
-        }
+       }
 
       }
-
 
     },
     error: function(response) {
