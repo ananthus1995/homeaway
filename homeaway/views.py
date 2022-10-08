@@ -441,8 +441,7 @@ def buddy_request_manage(request):
         folowerid= request.POST.get('followers_id')
 
         btn_status=request.POST.get('btn_status')
-        # print(btn_status)
-        # print(folowerid)
+
 
         allfollower_data=FollowersCount.objects.filter(user_id=request.user.id, follower_id=folowerid)
         for alldata in allfollower_data:
@@ -468,12 +467,19 @@ def buddy_request_manage(request):
 
 @login_required
 def ppl_folow_unflw(request):
-    if request.method=="POST":
+    if request.method == "POST":
         userid= request.POST.get('user_id')
         btn_status=request.POST.get('btn_status')
-        if btn_status=='follow':
-            following_data= FollowersCount.objects.create(user_id=userid, follower_id=request.user.id,status='pending')
-            following_data.save()
+        # print(btn_status)
+        # print(userid)
+        if btn_status=='Follow':
+            FollowersCount.objects.create(follower_id=request.user.id, user_id=userid, status='pending')
+
+
+        if btn_status=='Requested':
+            FollowersCount.objects.filter(follower_id=request.user.id, user_id=userid).delete()
+
+
 
         data = {
             'value': btn_status
