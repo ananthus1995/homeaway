@@ -93,7 +93,7 @@
       <div>
 
 
-       <img class="img-responsive" src="{{post.image.url}}" alt=""  width="55%" height="55%">
+       <img class="img-responsive" src="{{post.image.url}}" alt="posimage"  width="55%" height="55%">
 
 
       </div>
@@ -106,22 +106,24 @@
       <div class="mr-3" >
          <form action="{% url 'likeaction'  %}" method="POST" class='like-form' id='{{post.id}}'>
       {%csrf_token%}
-           <input type="hidden"  name="post_id" value={{post.id}}>
- <button type="submit"  class="unstyled-button like-btn{{post.id}}" style="border: none !important;background: none; outline: none;" id="likebtns">
+
+ <button type="submit"  class="text-secondary like-btn{{post.id}}" style="border: none !important;background: none; outline: none;" id="likebtns">
 
        {% if  request.user not in post.liked.all%}
+  <i class="feather-heart " id="like_btn"  style="font-size:15px">like</i>
+  {% else %}
+  <i class="fa fa-heart" style="font-size:15px;color:red" id="unlike_btn" >liked</i>
 
-                        <i class="feather-heart " id="like_btn"  style="font-size:15px">like</i>
-
-
-                                {% else %}
-                <i class="fa fa-heart" style="font-size:15px;color:red" id="unlike_btn" >liked</i>
-
-                                {% endif %}
+{% endif %}
 
  </button>
 
-       <span class="like-count{{post.id}}" > {{post.num_likes}}  </span>  <span>likes</span>
+       <span class="like-count{{post.id}} text-secondary">{{post.num_likes}}  </span>  <span class="text-secondary">likes</span>
+
+            <a href="{%url 'post-view' post.id%}" class="mr-3 text-secondary ml-3">
+        <i class="feather-message-circle"></i> 8 <span>comments</span></a>
+
+
 </form>
       </div>
 
@@ -131,10 +133,7 @@
 
 
 
-      <a href="#" class="mr-3 text-secondary">
-        <i class="feather-message-square"></i> 8 </a>
-      <a href="#" class="mr-3 text-secondary">
-        <i class="feather-share-2"></i> 2 </a>
+
     </div>
 
 
@@ -150,137 +149,137 @@
 
 
 
-  <div class="mb-3 shadow-sm rounded box bg-white osahan-slider-main">
-    <div class="osahan-slider">
-      <div class="osahan-slider-item">
-        <a href="job-profile.html">
-          <div class="shadow-sm border rounded bg-white job-item job-item mr-2 mt-3 mb-3">
-            <div class="d-flex align-items-center p-3 job-item-header">
-              <div class="overflow-hidden mr-2">
-                <h6 class="font-weight-bold text-dark mb-0 text-truncate">UI/UX designer</h6>
-                <div class="text-truncate text-primary">Envato</div>
-                <div class="small text-gray-500">
-                  <i class="feather-map-pin"></i> India, Punjab
-                </div>
-              </div>
-              <img class="img-fluid ml-auto" src="https://askbootstrap.com/preview/Olink/light/img/l1.png" alt="">
-            </div>
-            <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
-              <div class="overlap-rounded-circle d-flex">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p1.png" alt="" data-original-title="Sophia Lee">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p2.png" alt="" data-original-title="John Doe">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p3.png" alt="" data-original-title="Julia Cox">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p4.png" alt="" data-original-title="Robert Cook">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p5.png" alt="" data-original-title="Sophia Lee">
-              </div>
-              <span class="font-weight-bold text-primary">18 connections</span>
-            </div>
-            <div class="p-3 job-item-footer">
-              <small class="text-gray-500">
-                <i class="feather-clock"></i> Posted 3 Days ago </small>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="osahan-slider-item">
-        <a href="job-profile.html">
-          <div class="shadow-sm border rounded bg-white job-item job-item mr-2 mt-3 mb-3">
-            <div class="d-flex align-items-center p-3 job-item-header">
-              <div class="overflow-hidden mr-2">
-                <h6 class="font-weight-bold text-dark mb-0 text-truncate">.NET Developer</h6>
-                <div class="text-truncate text-primary">Invision</div>
-                <div class="small text-gray-500">
-                  <i class="feather-map-pin"></i> London, UK
-                </div>
-              </div>
-              <img class="img-fluid ml-auto" src="https://askbootstrap.com/preview/Olink/light/img/l4.png" alt="">
-            </div>
-            <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
-              <div class="overlap-rounded-circle d-flex">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p13.png" alt="" data-original-title="Sophia Lee">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p1.png" alt="" data-original-title="John Doe">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p2.png" alt="" data-original-title="Julia Cox">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p3.pngg" alt="" data-original-title="Robert Cook">
-              </div>
-              <span class="font-weight-bold text-primary">18 connections</span>
-            </div>
-            <div class="p-3 job-item-footer">
-              <small class="text-gray-500">
-                <i class="feather-clock"></i> Posted 3 Days ago </small>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="osahan-slider-item">
-        <a href="job-profile.html">
-          <div class="shadow-sm border rounded bg-white job-item job-item mr-2 mt-3 mb-3">
-            <div class="d-flex align-items-center p-3 job-item-header">
-              <div class="overflow-hidden mr-2">
-                <h6 class="font-weight-bold text-dark mb-0 text-truncate">Channel Sales Director</h6>
-                <div class="text-truncate text-primary">Slack Inc.</div>
-                <div class="small text-gray-500">
-                  <i class="feather-map-pin"></i> London, UK
-                </div>
-              </div>
-              <img class="img-fluid ml-auto" src="https://askbootstrap.com/preview/Olink/light/imgg/l7.png" alt="">
-            </div>
-            <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
-              <div class="overlap-rounded-circle d-flex">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p12.png" alt="" data-original-title="Sophia Lee">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p13.png" alt="" data-original-title="John Doe">
-                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p2.png" alt="" data-original-title="Julia Cox">
-              </div>
-              <span class="font-weight-bold text-primary">18 connections</span>
-            </div>
-            <div class="p-3 job-item-footer">
-              <small class="text-gray-500">
-                <i class="feather-clock"></i> Posted 3 Days ago </small>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="box mb-3 shadow-sm border rounded bg-white osahan-post">
-    <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
-      <div class="dropdown-list-image mr-3">
-        <img class="rounded-circle" src="https://askbootstrap.com/preview/Olink/light/img/p6.png" alt="">
-        <div class="status-indicator bg-success"></div>
-      </div>
-      <div class="font-weight-bold">
-        <div class="text-truncate">Collin Weiland</div>
-        <div class="small text-gray-500">Web Developer @Google</div>
-      </div>
-      <span class="ml-auto small">3 hours</span>
-    </div>
-    <div class="p-3 border-bottom osahan-post-body">
-      <p>Lorem ipsum dolor sit amet, consectetur 😍😎 adipisicing elit, sed do eiusmod tempo incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <a href="#">laboris consequat.</a>
-      </p>
-      <img src="img/post1.png" class="img-fluid" alt="Responsive image">
-    </div>
-    <div class="p-3 border-bottom osahan-post-footer">
-      <a href="#" class="mr-3 text-secondary">
-        <i class="feather-heart text-danger"></i> 16 </a>
-      <a href="#" class="mr-3 text-secondary">
-        <i class="feather-message-square"></i> 8 </a>
-      <a href="#" class="mr-3 text-secondary">
-        <i class="feather-share-2"></i> 2 </a>
-    </div>
-    <div class="p-3 d-flex align-items-top border-bottom osahan-post-comment">
-      <div class="dropdown-list-image mr-3">
-        <img class="rounded-circle" src="img/p7.png" alt="">
-        <div class="status-indicator bg-success"></div>
-      </div>
-      <div class="font-weight-bold">
-        <div class="text-truncate"> James Spiegel <span class="float-right small">2 min</span>
-        </div>
-        <div class="small text-gray-500">Ratione voluptatem sequi en lod nesciunt. Neque porro quisquam est, quinder dolorem ipsum quia dolor sit amet, consectetur</div>
-      </div>
-    </div>
-    <div class="p-3">
-      <textarea placeholder="Add Comment..." class="form-control border-0 p-0 shadow-none" rows="1"></textarea>
-    </div>
-  </div>
+<!--  <div class="mb-3 shadow-sm rounded box bg-white osahan-slider-main">-->
+<!--    <div class="osahan-slider">-->
+<!--      <div class="osahan-slider-item">-->
+<!--        <a href="job-profile.html">-->
+<!--          <div class="shadow-sm border rounded bg-white job-item job-item mr-2 mt-3 mb-3">-->
+<!--            <div class="d-flex align-items-center p-3 job-item-header">-->
+<!--              <div class="overflow-hidden mr-2">-->
+<!--                <h6 class="font-weight-bold text-dark mb-0 text-truncate">UI/UX designer</h6>-->
+<!--                <div class="text-truncate text-primary">Envato</div>-->
+<!--                <div class="small text-gray-500">-->
+<!--                  <i class="feather-map-pin"></i> India, Punjab-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <img class="img-fluid ml-auto" src="https://askbootstrap.com/preview/Olink/light/img/l1.png" alt="">-->
+<!--            </div>-->
+<!--            <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">-->
+<!--              <div class="overlap-rounded-circle d-flex">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p1.png" alt="" data-original-title="Sophia Lee">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p2.png" alt="" data-original-title="John Doe">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p3.png" alt="" data-original-title="Julia Cox">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p4.png" alt="" data-original-title="Robert Cook">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p5.png" alt="" data-original-title="Sophia Lee">-->
+<!--              </div>-->
+<!--              <span class="font-weight-bold text-primary">18 connections</span>-->
+<!--            </div>-->
+<!--            <div class="p-3 job-item-footer">-->
+<!--              <small class="text-gray-500">-->
+<!--                <i class="feather-clock"></i> Posted 3 Days ago </small>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      <div class="osahan-slider-item">-->
+<!--        <a href="job-profile.html">-->
+<!--          <div class="shadow-sm border rounded bg-white job-item job-item mr-2 mt-3 mb-3">-->
+<!--            <div class="d-flex align-items-center p-3 job-item-header">-->
+<!--              <div class="overflow-hidden mr-2">-->
+<!--                <h6 class="font-weight-bold text-dark mb-0 text-truncate">.NET Developer</h6>-->
+<!--                <div class="text-truncate text-primary">Invision</div>-->
+<!--                <div class="small text-gray-500">-->
+<!--                  <i class="feather-map-pin"></i> London, UK-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <img class="img-fluid ml-auto" src="https://askbootstrap.com/preview/Olink/light/img/l4.png" alt="">-->
+<!--            </div>-->
+<!--            <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">-->
+<!--              <div class="overlap-rounded-circle d-flex">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p13.png" alt="" data-original-title="Sophia Lee">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p1.png" alt="" data-original-title="John Doe">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p2.png" alt="" data-original-title="Julia Cox">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p3.pngg" alt="" data-original-title="Robert Cook">-->
+<!--              </div>-->
+<!--              <span class="font-weight-bold text-primary">18 connections</span>-->
+<!--            </div>-->
+<!--            <div class="p-3 job-item-footer">-->
+<!--              <small class="text-gray-500">-->
+<!--                <i class="feather-clock"></i> Posted 3 Days ago </small>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      <div class="osahan-slider-item">-->
+<!--        <a href="job-profile.html">-->
+<!--          <div class="shadow-sm border rounded bg-white job-item job-item mr-2 mt-3 mb-3">-->
+<!--            <div class="d-flex align-items-center p-3 job-item-header">-->
+<!--              <div class="overflow-hidden mr-2">-->
+<!--                <h6 class="font-weight-bold text-dark mb-0 text-truncate">Channel Sales Director</h6>-->
+<!--                <div class="text-truncate text-primary">Slack Inc.</div>-->
+<!--                <div class="small text-gray-500">-->
+<!--                  <i class="feather-map-pin"></i> London, UK-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <img class="img-fluid ml-auto" src="https://askbootstrap.com/preview/Olink/light/imgg/l7.png" alt="">-->
+<!--            </div>-->
+<!--            <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">-->
+<!--              <div class="overlap-rounded-circle d-flex">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p12.png" alt="" data-original-title="Sophia Lee">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p13.png" alt="" data-original-title="John Doe">-->
+<!--                <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p2.png" alt="" data-original-title="Julia Cox">-->
+<!--              </div>-->
+<!--              <span class="font-weight-bold text-primary">18 connections</span>-->
+<!--            </div>-->
+<!--            <div class="p-3 job-item-footer">-->
+<!--              <small class="text-gray-500">-->
+<!--                <i class="feather-clock"></i> Posted 3 Days ago </small>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="box mb-3 shadow-sm border rounded bg-white osahan-post">-->
+<!--    <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">-->
+<!--      <div class="dropdown-list-image mr-3">-->
+<!--        <img class="rounded-circle" src="https://askbootstrap.com/preview/Olink/light/img/p6.png" alt="">-->
+<!--        <div class="status-indicator bg-success"></div>-->
+<!--      </div>-->
+<!--      <div class="font-weight-bold">-->
+<!--        <div class="text-truncate">Collin Weiland</div>-->
+<!--        <div class="small text-gray-500">Web Developer @Google</div>-->
+<!--      </div>-->
+<!--      <span class="ml-auto small">3 hours</span>-->
+<!--    </div>-->
+<!--    <div class="p-3 border-bottom osahan-post-body">-->
+<!--      <p>Lorem ipsum dolor sit amet, consectetur 😍😎 adipisicing elit, sed do eiusmod tempo incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <a href="#">laboris consequat.</a>-->
+<!--      </p>-->
+<!--      <img src="img/post1.png" class="img-fluid" alt="Responsive image">-->
+<!--    </div>-->
+<!--    <div class="p-3 border-bottom osahan-post-footer">-->
+<!--      <a href="#" class="mr-3 text-secondary">-->
+<!--        <i class="feather-heart text-danger"></i> 16 </a>-->
+<!--      <a href="#" class="mr-3 text-secondary">-->
+<!--        <i class="feather-message-square"></i> 8 </a>-->
+<!--      <a href="#" class="mr-3 text-secondary">-->
+<!--        <i class="feather-share-2"></i> 2 </a>-->
+<!--    </div>-->
+<!--    <div class="p-3 d-flex align-items-top border-bottom osahan-post-comment">-->
+<!--      <div class="dropdown-list-image mr-3">-->
+<!--        <img class="rounded-circle" src="img/p7.png" alt="">-->
+<!--        <div class="status-indicator bg-success"></div>-->
+<!--      </div>-->
+<!--      <div class="font-weight-bold">-->
+<!--        <div class="text-truncate"> James Spiegel <span class="float-right small">2 min</span>-->
+<!--        </div>-->
+<!--        <div class="small text-gray-500">Ratione voluptatem sequi en lod nesciunt. Neque porro quisquam est, quinder dolorem ipsum quia dolor sit amet, consectetur</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="p-3">-->
+<!--      <textarea placeholder="Add Comment..." class="form-control border-0 p-0 shadow-none" rows="1"></textarea>-->
+<!--    </div>-->
+<!--  </div>-->
 </main>
 <aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
   <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
@@ -331,16 +330,16 @@
       <img src="img/chart.png" class="img-fluid" alt="Responsive image">
     </div>
   </div>
-  <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center">
-    <img src="img/job1.png" class="img-fluid" alt="Responsive image">
-    <div class="p-3 border-bottom">
-      <h6 class="font-weight-bold text-dark">Osahan Solutions</h6>
-      <p class="mb-0 text-muted">Looking for talent?</p>
-    </div>
-    <div class="p-3">
-      <button type="button" class="btn btn-outline-primary pl-4 pr-4"> POST A JOB </button>
-    </div>
-  </div>
+<!--  <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center">-->
+<!--    <img src="img/job1.png" class="img-fluid" alt="Responsive image">-->
+<!--    <div class="p-3 border-bottom">-->
+<!--      <h6 class="font-weight-bold text-dark">Osahan Solutions</h6>-->
+<!--      <p class="mb-0 text-muted">Looking for talent?</p>-->
+<!--    </div>-->
+<!--    <div class="p-3">-->
+<!--      <button type="button" class="btn btn-outline-primary pl-4 pr-4"> POST A JOB </button>-->
+<!--    </div>-->
+<!--  </div>-->
 </aside>
 <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
   <div class="box shadow-sm border rounded bg-white mb-3">
@@ -389,7 +388,7 @@
 
       {%endfor%}
       <hr>
-      <span style="margin-left: 5rem!important;"><a href="#">Find People</a></span>
+      <span style="margin-left: 5rem!important;"><a href="{%url 'ppls'%}">Find People</a></span>
     </div>
   </div>
   <div class="box shadow-sm border rounded bg-white mb-3">
@@ -447,76 +446,76 @@
       {%endif%}
     </div>
   </div>
-  <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center overflow-hidden">
-    <img src="img/ads1.png" class="img-fluid" alt="Responsive image">
-    <div class="p-3 border-bottom">
-      <h6 class="font-weight-bold text-gold">Olink Premium</h6>
-      <p class="mb-0 text-muted">Grow & nurture your network</p>
-    </div>
-    <div class="p-3">
-      <button type="button" class="btn btn-outline-gold pl-4 pr-4"> ACTIVATE </button>
-    </div>
-  </div>
-  <div class="box shadow-sm border rounded bg-white mb-3">
-    <div class="box-title border-bottom p-3">
-      <h6 class="m-0">Jobs </h6>
-    </div>
-    <div class="box-body p-3">
-      <a href="job-profile.html">
-        <div class="shadow-sm border rounded bg-white job-item mb-3">
-          <div class="d-flex align-items-center p-3 job-item-header">
-            <div class="overflow-hidden mr-2">
-              <h6 class="font-weight-bold text-dark mb-0 text-truncate">Product Director</h6>
-              <div class="text-truncate text-primary">Spotify Inc.</div>
-              <div class="small text-gray-500">
-                <i class="feather-map-pin"></i> India, Punjab
-              </div>
-            </div>
-            <img class="img-fluid ml-auto" src="img/l3.png" alt="">
-          </div>
-          <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
-            <div class="overlap-rounded-circle">
-              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p9.png" alt="" data-original-title="Sophia Lee">
-              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p10.png" alt="" data-original-title="John Doe">
-              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p11.png" alt="" data-original-title="Julia Cox">
-              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p12.png" alt="" data-original-title="Robert Cook">
-            </div>
-            <span class="font-weight-bold text-muted">18 connections</span>
-          </div>
-          <div class="p-3 job-item-footer">
-            <small class="text-gray-500">
-              <i class="feather-clock"></i> Posted 3 Days ago </small>
-          </div>
-        </div>
-      </a>
-      <a href="job-profile.html">
-        <div class="shadow-sm border rounded bg-white job-item">
-          <div class="d-flex align-items-center p-3 job-item-header">
-            <div class="overflow-hidden mr-2">
-              <h6 class="font-weight-bold text-dark mb-0 text-truncate">.NET Developer</h6>
-              <div class="text-truncate text-primary">Invision</div>
-              <div class="small text-gray-500">
-                <i class="feather-map-pin"></i> London, UK
-              </div>
-            </div>
-            <img class="img-fluid ml-auto" src="img/l4.png" alt="">
-          </div>
-          <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
-            <div class="overlap-rounded-circle">
-              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p1.png" alt="" data-original-title="Sophia Lee">
-              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p1.png" alt="" data-original-title="John Doe">
-              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p3.png" alt="" data-original-title="Robert Cook">
-            </div>
-            <span class="font-weight-bold text-muted">18 connections</span>
-          </div>
-          <div class="p-3 job-item-footer">
-            <small class="text-gray-500">
-              <i class="feather-clock"></i> Posted 3 Days ago </small>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
+<!--  <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center overflow-hidden">-->
+<!--    <img src="img/ads1.png" class="img-fluid" alt="Responsive image">-->
+<!--    <div class="p-3 border-bottom">-->
+<!--      <h6 class="font-weight-bold text-gold">Olink Premium</h6>-->
+<!--      <p class="mb-0 text-muted">Grow & nurture your network</p>-->
+<!--    </div>-->
+<!--    <div class="p-3">-->
+<!--      <button type="button" class="btn btn-outline-gold pl-4 pr-4"> ACTIVATE </button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="box shadow-sm border rounded bg-white mb-3">-->
+<!--    <div class="box-title border-bottom p-3">-->
+<!--      <h6 class="m-0">Jobs </h6>-->
+<!--    </div>-->
+<!--    <div class="box-body p-3">-->
+<!--      <a href="job-profile.html">-->
+<!--        <div class="shadow-sm border rounded bg-white job-item mb-3">-->
+<!--          <div class="d-flex align-items-center p-3 job-item-header">-->
+<!--            <div class="overflow-hidden mr-2">-->
+<!--              <h6 class="font-weight-bold text-dark mb-0 text-truncate">Product Director</h6>-->
+<!--              <div class="text-truncate text-primary">Spotify Inc.</div>-->
+<!--              <div class="small text-gray-500">-->
+<!--                <i class="feather-map-pin"></i> India, Punjab-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <img class="img-fluid ml-auto" src="img/l3.png" alt="">-->
+<!--          </div>-->
+<!--          <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">-->
+<!--            <div class="overlap-rounded-circle">-->
+<!--              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p9.png" alt="" data-original-title="Sophia Lee">-->
+<!--              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p10.png" alt="" data-original-title="John Doe">-->
+<!--              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p11.png" alt="" data-original-title="Julia Cox">-->
+<!--              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p12.png" alt="" data-original-title="Robert Cook">-->
+<!--            </div>-->
+<!--            <span class="font-weight-bold text-muted">18 connections</span>-->
+<!--          </div>-->
+<!--          <div class="p-3 job-item-footer">-->
+<!--            <small class="text-gray-500">-->
+<!--              <i class="feather-clock"></i> Posted 3 Days ago </small>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </a>-->
+<!--      <a href="job-profile.html">-->
+<!--        <div class="shadow-sm border rounded bg-white job-item">-->
+<!--          <div class="d-flex align-items-center p-3 job-item-header">-->
+<!--            <div class="overflow-hidden mr-2">-->
+<!--              <h6 class="font-weight-bold text-dark mb-0 text-truncate">.NET Developer</h6>-->
+<!--              <div class="text-truncate text-primary">Invision</div>-->
+<!--              <div class="small text-gray-500">-->
+<!--                <i class="feather-map-pin"></i> London, UK-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <img class="img-fluid ml-auto" src="img/l4.png" alt="">-->
+<!--          </div>-->
+<!--          <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">-->
+<!--            <div class="overlap-rounded-circle">-->
+<!--              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="https://askbootstrap.com/preview/Olink/light/img/p1.png" alt="" data-original-title="Sophia Lee">-->
+<!--              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p1.png" alt="" data-original-title="John Doe">-->
+<!--              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="img/p3.png" alt="" data-original-title="Robert Cook">-->
+<!--            </div>-->
+<!--            <span class="font-weight-bold text-muted">18 connections</span>-->
+<!--          </div>-->
+<!--          <div class="p-3 job-item-footer">-->
+<!--            <small class="text-gray-500">-->
+<!--              <i class="feather-clock"></i> Posted 3 Days ago </small>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </a>-->
+<!--    </div>-->
+<!--  </div>-->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
     $(function () {
