@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
 from django.db.models.query_utils import Q
-
+import random
 from itertools import chain
 # from django.contrib.sessions.models import Session
 
@@ -29,16 +29,16 @@ class Home(TemplateView):
 
         caption = request.POST.get('caption')
         image = request.FILES.get('image')
-        post_obj = Post.objects.create(user=request.user, image=image, caption=caption)
-        post_obj.save()
+        Post.objects.create(user=request.user, image=image, caption=caption)
+
         return redirect('userhome')
 
 
     def get(self,request,*args,**kwargs):
-        post_list = Post.objects.filter(user_id=self.request.user.id).order_by('-created_at')
+        # post_list = Post.objects.filter(user_id=self.request.user.id).order_by('-created_at')
         users_following = []
         posts = []
-
+        # post_list=[]
         followings_list = []
         followers_list = []
 
@@ -47,11 +47,30 @@ class Home(TemplateView):
 
         for user in following_list:
             users_following.append(user)
+            random.shuffle(users_following)
 
         for uid_obj in users_following:
-            all_following_posts= Post.objects.filter(user_id=uid_obj.user_id)
+            all_following_posts= list(Post.objects.filter(user_id=uid_obj.user_id).order_by('-created_at'))
+            random.shuffle(all_following_posts)
             posts.append(all_following_posts)
+
+            post_lists = list(Post.objects.filter(user_id=self.request.user.id).order_by('-created_at'))
+            # random.shuffle(post_lists)
+
+        if posts:
             post_list = list(chain(*posts))
+            random.shuffle(post_list)
+
+            if post_lists:
+                # post_list = chain(post_lists)
+                post_list = list(chain(post_lists,*posts))
+                random.shuffle(post_list)
+            else:
+                post_list = chain(*posts)
+                random.shuffle(post_list)
+
+        else:
+            post_list = Post.objects.filter(user_id=self.request.user.id).order_by('-created_at')
 
         following_users= FollowersCount.objects.filter(follower_id=self.request.user.id)
         for f in following_users:
@@ -488,6 +507,15 @@ def ppl_folow_unflw(request):
 
         return JsonResponse(data, safe=False)
     return redirect('userhome')
+
+class Ppls(TemplateView):
+    template_name = 'people.html'
+
+class PostView(DetailView):
+    template_name = 'postview.html'
+    pk_url_kwarg = 'pk'
+    model = Post
+    context_object_name = 'postdetails'
 
 
 
