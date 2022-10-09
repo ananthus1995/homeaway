@@ -153,3 +153,16 @@ class FollowersCount(models.Model):
     # def __str__(self):
     #     return self.user
 
+class Comments(models.Model):
+    post=models.ForeignKey(Post,on_delete=models.CASCADE,related_name='posts')
+    comments=models.TextField(blank=True)
+    comment_by=models.ForeignKey(Users,on_delete=models.CASCADE,related_name='commented_user')
+
+class Replies(models.Model):
+    comment=models.ForeignKey(Comments,on_delete=models.CASCADE,related_name='post_comments')
+    replie=models.TextField(blank=True)
+    replied_by= models.ForeignKey(Users, on_delete=models.CASCADE ,related_name='replied_user')
+
+
+
+
