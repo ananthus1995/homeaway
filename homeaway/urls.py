@@ -23,16 +23,11 @@ urlpatterns = [
     path('account/forgotpassword/',views.Forgot_Password.as_view(),name='forgotpswd'),
     path('accounts/profile/<str:pk>/<int:userid>',views.UserProfiles.as_view(),name='usersprofileview'),
     path('follow_unfollow/',views.FollowUnfollow.as_view(), name='followunfollow'),
-    path('reqstmanage/',views.buddy_request_manage,name='reqstmanages')
+    path('reqstmanage/',views.buddy_request_manage,name='reqstmanages'),
+    path('pplfollowunfollows/', views.ppl_folow_unflw, name='followunfollows'),
+    path('people/', views.Ppls.as_view(), name='ppls'),
+    path('post/<str:pk>',views.PostView.as_view(), name='post-view')
 
 
-    # path('settings', views.settings, name='settings'),
-    # path('upload', views.upload, name='upload'),
-    # path('follow', views.follow, name='follow'),
-    # path('search', views.search, name='search'),
-    # path('profile/<str:pk>', views.profile, name='profile'),
-    # path('like-post', views.like_post, name='like-post'),
-    # path('signup', views.signup, name='signup'),
-    # path('signin', views.signin, name='signin'),
-    # path('logout', views.logout, name='logout'),
+
 ]
